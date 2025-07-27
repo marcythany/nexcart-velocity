@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nexcart Velocity
+
+**Nexcart Velocity** is a modern, performant, and scalable e-commerce UI starter built with the following tech stack:
+
+- **Next.js 15 (Turbopack)**
+- **Bun** as runtime
+- **React 19**
+- **TailwindCSS 4**
+- **Zustand** for state management
+- **Apollo Client + GraphQL** (planned integration)
+- **Storybook 9** for UI development and documentation
+- **Vitest / Playwright / Cypress / Jest** for testing
+
+## Features
+
+- 🔐 Auth pages: Login and Register
+- 📦 Modular folder structure with atomic design (atoms, molecules, organisms)
+- 💾 Zustand store with persistent state hook
+- 🌐 SEO support with `next-seo`
+- 🎨 Fully styled with TailwindCSS and custom globals
+- 🧪 Full testing setup (Vitest, Cypress, Jest, Playwright)
+- 📚 Storybook with accessibility and documentation addons
+- 🖼️ Optimized image and SVG usage
+
+---
+
+## Project Structure
+
+```text
+nexcart-velocity/
+├─ .storybook/ # Storybook config and Vitest setup
+├─ public/ # Static assets (SVGs, icons)
+├─ src/
+│ ├─ app/ # Next.js App Router pages, layouts, global CSS
+│ ├─ components/ # Atomic design: atoms, molecules, templates
+│ ├─ hooks/ # Custom React hooks
+│ ├─ lib/store/ # Zustand stores with type safety
+│ ├─ stories/ # Storybook stories and assets
+│ └─ utils/ # Shared utilities (planned)
+├─ .gitignore
+├─ bun.lock
+├─ eslint.config.mjs
+├─ next.config.ts
+├─ package.json
+├─ postcss.config.mjs
+├─ README.md
+├─ tsconfig.json
+├─ vitest.config.ts
+└─ vitest.shims.d.ts
+
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Bun](https://bun.sh) installed
+
+### Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run dev server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Run Storybook
 
-## Learn More
+```bash
+bun run storybook
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Run type-check
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+bun run type-check
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Run tests
 
-## Deploy on Vercel
+```bash
+bun run vitest
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Scripts
+
+```json
+"scripts": {
+  "dev": "bun run next dev --turbopack",
+  "build": "bun run next build --turbopack",
+  "start": "bun run next start",
+  "lint": "bun run next lint",
+  "storybook": "storybook dev -p 6006",
+  "build-storybook": "storybook build",
+  "type-check": "bun run tsc --noEmit"
+}
+```
+
+---
+
+## Tech Stack
+
+- **Next.js 15 + App Router**
+- **Bun** for runtime and scripts
+- **TailwindCSS 4** for styling
+- **Zustand** with persistent store
+- **Storybook 9** with a11y, docs and vitest addon
+- **GraphQL** support (via Apollo Client)
+- **Testing:**
+  - Vitest (unit/integration)
+  - Playwright & Cypress (e2e)
+  - Jest (legacy or utility tests)
+
+---
+
+## Todo
+
+- [ ] Implement real GraphQL queries/mutations
+- [ ] Add OAuth providers for login/register
+- [ ] Expand component library (organisms/templates)
+- [ ] Configure CI/CD (GitHub Actions / Vercel preview deploys)
+
+---
+
+## License
+
+MIT
+
+---
+
+## Author
+
+**Marcy** — [GitHub](https://github.com/marcythany) • [Website](https://marcy-miniportfolio.vercel.app/)

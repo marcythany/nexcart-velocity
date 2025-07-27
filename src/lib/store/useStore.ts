@@ -1,0 +1,1 @@
+// Basic zustand store scaffold

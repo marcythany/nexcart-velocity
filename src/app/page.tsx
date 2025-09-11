@@ -1,196 +1,250 @@
-'use client';
-
-import {
-	Bolt,
-	BrainCircuit,
-	LayoutTemplate,
-	PenSquare,
-	Zap,
-} from 'lucide-react';
-import { motion } from 'motion/react';
+import { ArrowRight, RefreshCw, Shield, Truck } from 'lucide-react';
 import Link from 'next/link';
-import { useRef } from 'react';
+import Button from '../components/atoms/Button';
+import ProductCard from '../components/molecules/ProductCard';
+import { Card, CardContent } from '../components/ui/Card';
 
-const FEATURES = [
+// Mock data - replace with GraphQL queries
+const featuredProducts = [
 	{
-		icon: <PenSquare size={48} strokeWidth={1.5} className='text-primary' />,
-		title: 'Customizable Storefronts',
-		description:
-			'Create stunning storefronts without coding using our drag-and-drop builder.',
+		id: '1',
+		name: 'Premium Wireless Headphones',
+		price: 299.99,
+		originalPrice: 399.99,
+		rating: 4.8,
+		reviewCount: 1247,
+		image: '/api/placeholder/400/400',
+		description: 'High-quality wireless headphones with noise cancellation',
+		category: 'Electronics',
+		inStock: true,
+		isNew: true,
+		isOnSale: true,
 	},
 	{
-		icon: <Zap size={48} strokeWidth={1.5} className='text-primary' />,
-		title: 'Lightning Fast Checkout',
-		description:
-			'Optimized checkout flow that converts 35% better than traditional solutions.',
+		id: '2',
+		name: 'Organic Cotton T-Shirt',
+		price: 49.99,
+		rating: 4.6,
+		reviewCount: 892,
+		image: '/api/placeholder/400/400',
+		description: 'Sustainable organic cotton t-shirt',
+		category: 'Clothing',
+		inStock: true,
+		isNew: false,
+		isOnSale: false,
 	},
 	{
-		icon: <BrainCircuit size={48} strokeWidth={1.5} className='text-primary' />,
-		title: 'AI-Powered Analytics',
-		description:
-			'Get actionable insights to optimize your sales strategy and inventory.',
+		id: '3',
+		name: 'Smart Fitness Watch',
+		price: 199.99,
+		originalPrice: 249.99,
+		rating: 4.7,
+		reviewCount: 2156,
+		image: '/api/placeholder/400/400',
+		description: 'Advanced fitness tracking with heart rate monitor',
+		category: 'Electronics',
+		inStock: true,
+		isNew: false,
+		isOnSale: true,
+	},
+	{
+		id: '4',
+		name: 'Ceramic Coffee Mug',
+		price: 24.99,
+		rating: 4.9,
+		reviewCount: 543,
+		image: '/api/placeholder/400/400',
+		description: 'Handcrafted ceramic coffee mug',
+		category: 'Home & Kitchen',
+		inStock: true,
+		isNew: false,
+		isOnSale: false,
 	},
 ];
 
-export default function Home() {
-	return (
-		<main className='min-h-screen bg-bg-base'>
-			{/* Hero Section */}
-			<HeroSection />
+const categories = [
+	{ name: 'Electronics', image: '/api/placeholder/300/200', count: 1250 },
+	{ name: 'Clothing', image: '/api/placeholder/300/200', count: 890 },
+	{ name: 'Home & Kitchen', image: '/api/placeholder/300/200', count: 654 },
+	{ name: 'Sports & Outdoors', image: '/api/placeholder/300/200', count: 432 },
+];
 
-			{/* Features Section */}
-			<FeaturesSection />
+export default function HomePage() {
+	const handleAddToCart = (product: {
+		id: string;
+		name: string;
+		price: number;
+	}) => {
+		console.log('Add to cart:', product);
+		// TODO: Integrate with cart store
+	};
 
-			{/* CTA Section */}
-			<CTASection />
-		</main>
-	);
-}
+	const handleToggleWishlist = (productId: string) => {
+		console.log('Toggle wishlist:', productId);
+		// TODO: Integrate with wishlist store
+	};
 
-function HeroSection() {
-	return (
-		<section className='container mx-auto px-4 py-24 text-center'>
-			<motion.div
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-			>
-				<h1 className='text-3xl md:text-4xl font-display font-bold tracking-tight text-text-base mb-6'>
-					Welcome to Nexcart Velocity
-				</h1>
-				<p className='text-lg text-text-muted max-w-3xl mx-auto mb-10'>
-					Accelerating your e-commerce experience with cutting-edge performance
-				</p>
-				<div className='flex flex-col sm:flex-row justify-center gap-4'>
-					<Link
-						href='/dashboard'
-						className='btn focus-ring bg-primary text-text-inverted hover:bg-primary-hover hover:-translate-y-0.5 active:translate-y-0'
-					>
-						<LayoutTemplate size={20} />
-						Go to Dashboard
-					</Link>
-					<Link
-						href='/_auth/login'
-						className='btn focus-ring bg-bg-base text-primary border border-border hover:bg-bg-alt'
-					>
-						<Zap size={20} />
-						Sign In
-					</Link>
-				</div>
-			</motion.div>
-		</section>
-	);
-}
-
-function FeaturesSection() {
-	return (
-		<section className='py-20 bg-bg-alt'>
-			<div className='container mx-auto px-4'>
-				<motion.div
-					initial={{ opacity: 0 }}
-					whileInView={{ opacity: 1 }}
-					viewport={{ once: true, margin: '-100px' }}
-					className='text-center mb-16'
-				>
-					<h2 className='text-2xl md:text-3xl font-display font-bold text-text-base mb-4'>
-						Powerful E-commerce Solutions
-					</h2>
-					<div className='w-24 h-1 bg-primary mx-auto rounded-organic' />
-				</motion.div>
-
-				<div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto'>
-					{FEATURES.map((feature, index) => (
-						<FeatureCard
-							key={index}
-							index={index}
-							feature={feature}
-							isMiddleCard={index === 1}
-						/>
-					))}
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function FeatureCard({
-	index,
-	feature,
-	isMiddleCard,
-}: {
-	index: number;
-	feature: (typeof FEATURES)[0];
-	isMiddleCard: boolean;
-}) {
-	const cardRef = useRef<HTMLDivElement>(null);
-
-	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!cardRef.current) return;
-		const card = cardRef.current;
-		const rect = card.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		card.style.setProperty('--mouse-x', `${x}px`);
-		card.style.setProperty('--mouse-y', `${y}px`);
+	const handleQuickView = (product: {
+		id: string;
+		name: string;
+		price: number;
+	}) => {
+		console.log('Quick view:', product);
+		// TODO: Open modal with product details
 	};
 
 	return (
-		<motion.div
-			ref={cardRef}
-			className={`card p-8 flex flex-col items-center hover-scale ${
-				isMiddleCard ? 'card-no-radius' : ''
-			}`}
-			initial={{ opacity: 0, y: 30 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			whileHover={{
-				y: -5,
-				rotate: isMiddleCard ? 0 : 0.5, // Only rotate if not middle card
-			}}
-			viewport={{ once: true, margin: '-50px' }}
-			transition={{
-				delay: index * 0.1,
-				type: 'spring',
-				stiffness: 100,
-				damping: 15,
-			}}
-			onMouseMove={handleMouseMove}
-		>
-			<div className='text-primary mb-4 p-3 bg-bg-alt rounded-full'>
-				{feature.icon}
-			</div>
-			<h3 className='text-xl font-semibold text-text-base mb-3 text-center'>
-				{feature.title}
-			</h3>
-			<p className='text-text-muted text-center'>{feature.description}</p>
-		</motion.div>
-	);
-}
+		<div className='min-h-screen'>
+			{/* Hero Section */}
+			<section className='bg-gradient-to-r from-primary to-primary-hover text-text-inverted py-20'>
+				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+					<div className='text-center'>
+						<h1 className='text-4xl md:text-6xl font-bold mb-6'>
+							Welcome to Nexcart Velocity
+						</h1>
+						<p className='text-xl md:text-2xl mb-8 max-w-3xl mx-auto'>
+							Discover amazing products at unbeatable prices. Fast shipping,
+							secure payments, and exceptional customer service.
+						</p>
+						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
+							<Button
+								size='lg'
+								className='bg-text-inverted text-primary hover:bg-bg-alt'
+							>
+								Shop Now
+								<ArrowRight className='ml-2' size={20} />
+							</Button>
+							<Button
+								size='lg'
+								variant='outline'
+								className='border-text-inverted text-text-inverted hover:bg-text-inverted hover:text-primary'
+							>
+								Learn More
+							</Button>
+						</div>
+					</div>
+				</div>
+			</section>
 
-function CTASection() {
-	return (
-		<section className='py-20 bg-gradient-to-r from-primary to-primary-hover text-text-inverted'>
-			<div className='container mx-auto px-4 text-center'>
-				<motion.div
-					initial={{ opacity: 0 }}
-					whileInView={{ opacity: 1 }}
-					viewport={{ once: true }}
-				>
-					<h2 className='text-2xl md:text-3xl font-display font-bold mb-6'>
-						Ready to boost your sales?
-					</h2>
-					<p className='text-text-inverted/80 max-w-2xl mx-auto mb-8 text-lg'>
-						Join thousands of businesses already using Nexcart Velocity to grow
-						their online presence.
+			{/* Features Section */}
+			<section className='py-16 bg-bg-alt'>
+				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+						<div className='text-center'>
+							<div className='bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4'>
+								<Truck className='text-text-inverted' size={24} />
+							</div>
+							<h3 className='text-xl font-semibold mb-2'>Free Shipping</h3>
+							<p className='text-text-secondary'>
+								Free shipping on orders over $50
+							</p>
+						</div>
+						<div className='text-center'>
+							<div className='bg-success rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4'>
+								<Shield className='text-text-inverted' size={24} />
+							</div>
+							<h3 className='text-xl font-semibold mb-2'>Secure Payments</h3>
+							<p className='text-text-secondary'>
+								100% secure payment processing
+							</p>
+						</div>
+						<div className='text-center'>
+							<div className='bg-warning rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4'>
+								<RefreshCw className='text-text-inverted' size={24} />
+							</div>
+							<h3 className='text-xl font-semibold mb-2'>Easy Returns</h3>
+							<p className='text-text-secondary'>30-day return policy</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			{/* Categories Section */}
+			<section className='py-16'>
+				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+					<div className='text-center mb-12'>
+						<h2 className='text-3xl font-bold mb-4'>Shop by Category</h2>
+						<p className='text-text-secondary max-w-2xl mx-auto'>
+							Explore our wide range of categories and find exactly what you're
+							looking for
+						</p>
+					</div>
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+						{categories.map((category) => (
+							<Link
+								key={category.name}
+								href={`/category/${category.name.toLowerCase()}`}
+							>
+								<Card className='group cursor-pointer hover:shadow-lg transition-shadow'>
+									<div className='aspect-[3/2] overflow-hidden rounded-t-lg'>
+										<img
+											src={category.image}
+											alt={category.name}
+											className='w-full h-full object-cover group-hover:scale-105 transition-transform'
+										/>
+									</div>
+									<CardContent className='p-4'>
+										<h3 className='font-semibold mb-1'>{category.name}</h3>
+										<p className='text-sm text-text-secondary'>
+											{category.count} products
+										</p>
+									</CardContent>
+								</Card>
+							</Link>
+						))}
+					</div>
+				</div>
+			</section>
+
+			{/* Featured Products Section */}
+			<section className='py-16 bg-bg-alt'>
+				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+					<div className='flex justify-between items-center mb-12'>
+						<div>
+							<h2 className='text-3xl font-bold mb-4'>Featured Products</h2>
+							<p className='text-text-secondary'>
+								Discover our most popular and highly-rated products
+							</p>
+						</div>
+						<Link href='/products'>
+							<Button variant='outline'>
+								View All
+								<ArrowRight className='ml-2' size={16} />
+							</Button>
+						</Link>
+					</div>
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+						{featuredProducts.map((product) => (
+							<ProductCard
+								key={product.id}
+								product={product}
+								onAddToCart={handleAddToCart}
+								onToggleWishlist={handleToggleWishlist}
+								onQuickView={handleQuickView}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+
+			{/* Newsletter Section */}
+			<section className='py-16'>
+				<div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+					<h2 className='text-3xl font-bold mb-4'>Stay Updated</h2>
+					<p className='text-text-secondary mb-8 max-w-2xl mx-auto'>
+						Subscribe to our newsletter and be the first to know about new
+						products, exclusive deals, and special offers.
 					</p>
-					<Link
-						href='/_auth/register'
-						className='btn focus-ring bg-bg-base text-primary hover:bg-bg-alt inline-flex items-center gap-2'
-					>
-						<Bolt size={20} />
-						Get Started Free
-					</Link>
-				</motion.div>
-			</div>
-		</section>
+					<div className='flex flex-col sm:flex-row gap-4 max-w-md mx-auto'>
+						<input
+							type='email'
+							placeholder='Enter your email'
+							className='flex-1 px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
+						/>
+						<Button>Subscribe</Button>
+					</div>
+				</div>
+			</section>
+		</div>
 	);
 }

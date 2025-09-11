@@ -1,28 +1,179 @@
 import { motion } from 'framer-motion';
-import { Typography } from '../atoms/Typography';
+import { Heart, ShoppingCart, Star } from 'lucide-react';
+import React from 'react';
+import Button from '../atoms/Button';
+import { Card } from '../ui/Card';
 
-export const ProductCard = () => (
-	<motion.div
-		className='card overflow-hidden organic-shape hover-scale'
-		whileHover={{ y: -5 }}
-		transition={{ type: 'spring', damping: 15 }}
-	>
-		<div className='bg-bg-alt p-6'>
-			<div className='bg-gray-200 border-2 border-dashed rounded-organic w-full h-64' />
-		</div>
-		<div className='p-6'>
-			<Typography variant='h3' className='mb-2'>
-				Organic Cotton Shirt
-			</Typography>
-			<p className='text-text-muted mb-4'>
-				Sustainable fabric with natural dye
-			</p>
-			<div className='flex justify-between items-center'>
-				<span className='font-bold text-lg'>$49.99</span>
-				<button className='btn bg-primary text-text-inverted'>
-					Add to Cart
-				</button>
-			</div>
-		</div>
-	</motion.div>
-);
+export interface Product {
+	id: string;
+	name: string;
+	price: number;
+	originalPrice?: number;
+	rating: number;
+	reviewCount: number;
+	image: string;
+	images?: string[];
+	description: string;
+	category: string;
+	inStock: boolean;
+	isNew?: boolean;
+	isOnSale?: boolean;
+	variants?: ProductVariant[];
+}
+
+export interface ProductVariant {
+	id: string;
+	name: string;
+	value: string;
+	available: boolean;
+}
+
+interface ProductCardProps {
+	product: Product;
+	onAddToCart: (product: Product) => void;
+	onToggleWishlist: (productId: string) => void;
+	onQuickView: (product: Product) => void;
+	isInWishlist?: boolean;
+	className?: string;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({
+	product,
+	onAddToCart,
+	onToggleWishlist,
+	onQuickView,
+	isInWishlist = false,
+	className,
+}) => {
+	const discountPercentage =
+		product.originalPrice ?
+			Math.round(
+				((product.originalPrice - product.price) / product.originalPrice) * 100
+			)
+		:	0;
+
+	return (
+		<motion.div
+			className={className}
+			whileHover={{ y: -4 }}
+			transition={{ type: 'spring', damping: 15, stiffness: 300 }}
+		>
+			<Card className='group overflow-hidden cursor-pointer' padding='none'>
+				{/* Product Image */}
+				<div className='relative aspect-square overflow-hidden bg-bg-alt'>
+					<img
+						src={product.image}
+						alt={product.name}
+						className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
+						loading='lazy'
+					/>
+
+					{/* Badges */}
+					<div className='absolute top-2 left-2 flex flex-col gap-1'>
+						{product.isNew && (
+							<span className='bg-success text-text-inverted text-xs px-2 py-1 rounded'>
+								New
+							</span>
+						)}
+						{product.isOnSale && discountPercentage > 0 && (
+							<span className='bg-error text-text-inverted text-xs px-2 py-1 rounded'>
+								-{discountPercentage}%
+							</span>
+						)}
+						{!product.inStock && (
+							<span className='bg-text-secondary text-text-inverted text-xs px-2 py-1 rounded'>
+								Out of Stock
+							</span>
+						)}
+					</div>
+
+					{/* Quick Actions */}
+					<div className='absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity'>
+						<Button
+							size='sm'
+							variant='secondary'
+							className='p-2'
+							onClick={(e: React.MouseEvent) => {
+								e.stopPropagation();
+								onToggleWishlist(product.id);
+							}}
+							aria-label={
+								isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'
+							}
+						>
+							<Heart
+								size={16}
+								className={isInWishlist ? 'fill-current text-error' : ''}
+							/>
+						</Button>
+						<Button
+							size='sm'
+							variant='secondary'
+							className='p-2'
+							onClick={(e: React.MouseEvent) => {
+								e.stopPropagation();
+								onQuickView(product);
+							}}
+							aria-label='Quick view'
+						>
+							<ShoppingCart size={16} />
+						</Button>
+					</div>
+				</div>
+
+				{/* Product Info */}
+				<div className='p-4'>
+					<h3 className='font-semibold text-text-primary mb-1 line-clamp-2'>
+						{product.name}
+					</h3>
+
+					{/* Rating */}
+					<div className='flex items-center gap-1 mb-2'>
+						<div className='flex'>
+							{[...Array(5)].map((_, i) => (
+								<Star
+									key={i}
+									size={14}
+									className={
+										i < Math.floor(product.rating) ?
+											'fill-warning text-warning'
+										:	'text-text-secondary'
+									}
+								/>
+							))}
+						</div>
+						<span className='text-sm text-text-secondary'>
+							({product.reviewCount})
+						</span>
+					</div>
+
+					{/* Price */}
+					<div className='flex items-center gap-2 mb-3'>
+						<span className='font-bold text-lg text-text-primary'>
+							${product.price.toFixed(2)}
+						</span>
+						{product.originalPrice && product.originalPrice > product.price && (
+							<span className='text-sm text-text-secondary line-through'>
+								${product.originalPrice.toFixed(2)}
+							</span>
+						)}
+					</div>
+
+					{/* Add to Cart Button */}
+					<Button
+						className='w-full'
+						disabled={!product.inStock}
+						onClick={(e: React.MouseEvent) => {
+							e.stopPropagation();
+							onAddToCart(product);
+						}}
+					>
+						{product.inStock ? 'Add to Cart' : 'Out of Stock'}
+					</Button>
+				</div>
+			</Card>
+		</motion.div>
+	);
+};
+
+export default ProductCard;

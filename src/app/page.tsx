@@ -1,4 +1,5 @@
 import { ArrowRight, RefreshCw, Shield, Truck } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../components/atoms/Button';
 import ProductCard from '../components/molecules/ProductCard';
@@ -165,8 +166,8 @@ export default function HomePage() {
 					<div className='text-center mb-12'>
 						<h2 className='text-3xl font-bold mb-4'>Shop by Category</h2>
 						<p className='text-text-secondary max-w-2xl mx-auto'>
-							Explore our wide range of categories and find exactly what you're
-							looking for
+							Explore our wide range of categories and find exactly what
+							you&rsquo;re looking for
 						</p>
 					</div>
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
@@ -176,11 +177,12 @@ export default function HomePage() {
 								href={`/category/${category.name.toLowerCase()}`}
 							>
 								<Card className='group cursor-pointer hover:shadow-lg transition-shadow'>
-									<div className='aspect-[3/2] overflow-hidden rounded-t-lg'>
-										<img
+									<div className='aspect-[3/2] overflow-hidden rounded-t-lg relative'>
+										<Image
+											fill
 											src={category.image}
 											alt={category.name}
-											className='w-full h-full object-cover group-hover:scale-105 transition-transform'
+											className='object-cover group-hover:scale-105 transition-transform'
 										/>
 									</div>
 									<CardContent className='p-4'>

@@ -2,14 +2,14 @@
 
 **Nexcart Velocity** is a modern, performant, and scalable e-commerce UI starter built with the following tech stack:
 
-- **Next.js 15 (Turbopack)**
-- **Bun** as runtime
-- **React 19**
-- **TailwindCSS 4**
-- **Zustand** for state management
+- **Next.js 15.5.3 (Turbopack)**
+- **npm** as package manager
+- **React 19.1.1**
+- **TailwindCSS 4.1.13**
+- **Zustand 5.0.8** for state management
 - **Apollo Client + GraphQL** (planned integration)
-- **Storybook 9** for UI development and documentation
-- **Vitest / Playwright / Cypress / Jest** for testing
+- **Storybook 9.1.5** for UI development and documentation
+- **Vitest 3.2.4 / Playwright 1.55.0 / Cypress 15.2.0 / Jest 30.1.3** for testing
 
 ## Features
 
@@ -56,36 +56,37 @@ nexcart-velocity/
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) installed
+- [Node.js](https://nodejs.org) (v18+ recommended)
+- npm (comes with Node.js)
 
 ### Install dependencies
 
 ```bash
-bun install
+npm install
 ```
 
 ### Run dev server
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 ### Run Storybook
 
 ```bash
-bun run storybook
+npm run storybook
 ```
 
 ### Run type-check
 
 ```bash
-bun run type-check
+npm run type-check
 ```
 
 ### Run tests
 
 ```bash
-bun run vitest
+npm run test
 ```
 
 ---
@@ -94,13 +95,19 @@ bun run vitest
 
 ```json
 "scripts": {
-  "dev": "bun run next dev --turbopack",
-  "build": "bun run next build --turbopack",
-  "start": "bun run next start",
-  "lint": "bun run next lint",
+  "dev": "next dev --turbopack",
+  "build": "next build --turbopack",
+  "start": "next start",
+  "lint": "next lint",
+  "format": "prettier --write .",
+  "type-check": "tsc --noEmit",
+  "test": "vitest",
+  "test:e2e": "playwright test",
+  "test:cy": "cypress run",
+  "test:jest": "jest",
   "storybook": "storybook dev -p 6006",
   "build-storybook": "storybook build",
-  "type-check": "bun run tsc --noEmit"
+  "prepare": "husky install"
 }
 ```
 
@@ -108,16 +115,27 @@ bun run vitest
 
 ## Tech Stack
 
-- **Next.js 15 + App Router**
-- **Bun** for runtime and scripts
-- **TailwindCSS 4** for styling
-- **Zustand** with persistent store
-- **Storybook 9** with a11y, docs and vitest addon
+- **Next.js 15.5.3 + App Router**
+- **npm** for package management
+- **React 19.1.1**
+- **TailwindCSS 4.1.13** for styling
+- **Zustand 5.0.8** with persistent store
+- **Storybook 9.1.5** with a11y, docs and vitest addon
 - **GraphQL** support (via Apollo Client)
 - **Testing:**
-  - Vitest (unit/integration)
-  - Playwright & Cypress (e2e)
-  - Jest (legacy or utility tests)
+  - Vitest 3.2.4 (unit/integration)
+  - Playwright 1.55.0 & Cypress 15.2.0 (e2e)
+  - Jest 30.1.3 (legacy or utility tests)
+
+---
+
+## Recent Updates
+
+- ✅ Updated all libraries to latest versions (Next.js 15.5.3, React 19.1.1, etc.)
+- ✅ Fixed compatibility issues with Next.js config and Storybook imports
+- ✅ Resolved ESLint and TypeScript errors
+- ✅ Verified build, lint, and type-check pass
+- ✅ No security vulnerabilities found
 
 ---
 

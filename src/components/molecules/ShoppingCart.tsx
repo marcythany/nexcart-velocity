@@ -1,4 +1,5 @@
 import { Minus, Plus, Trash2 } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 import Button from '../atoms/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
@@ -76,10 +77,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 						>
 							{/* Product Image */}
 							<div className='flex-shrink-0'>
-								<img
+								<Image
 									src={item.image}
 									alt={item.name}
-									className='w-16 h-16 object-cover rounded'
+									width={64}
+									height={64}
+									className='object-cover rounded'
 								/>
 							</div>
 

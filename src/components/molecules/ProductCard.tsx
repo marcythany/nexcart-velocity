@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Heart, ShoppingCart, Star } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 import Button from '../atoms/Button';
 import { Card } from '../ui/Card';
@@ -61,11 +62,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 			<Card className='group overflow-hidden cursor-pointer' padding='none'>
 				{/* Product Image */}
 				<div className='relative aspect-square overflow-hidden bg-bg-alt'>
-					<img
+					<Image
 						src={product.image}
 						alt={product.name}
-						className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
-						loading='lazy'
+						fill
+						className='object-cover transition-transform duration-300 group-hover:scale-105'
+						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 					/>
 
 					{/* Badges */}

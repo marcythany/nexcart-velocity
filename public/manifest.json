@@ -1,0 +1,73 @@
+{
+	"name": "NexCart Velocity",
+	"short_name": "NexCart",
+	"description": "A blazing fast e-commerce platform",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#32302c",
+	"theme_color": "#9c8068",
+	"orientation": "portrait-primary",
+	"scope": "/",
+	"lang": "en-US",
+	"categories": ["shopping", "lifestyle"],
+	"icons": [
+		{
+			"src": "/icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	],
+	"shortcuts": [
+		{
+			"name": "View Cart",
+			"short_name": "Cart",
+			"description": "View your shopping cart",
+			"url": "/cart",
+			"icons": [
+				{
+					"src": "/icon-96x96.png",
+					"sizes": "96x96"
+				}
+			]
+		},
+		{
+			"name": "Browse Products",
+			"short_name": "Products",
+			"description": "Browse all products",
+			"url": "/products",
+			"icons": [
+				{
+					"src": "/icon-96x96.png",
+					"sizes": "96x96"
+				}
+			]
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/screenshot-mobile.png",
+			"sizes": "390x844",
+			"type": "image/png",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "/screenshot-desktop.png",
+			"sizes": "1280x720",
+			"type": "image/png",
+			"form_factor": "wide"
+		}
+	]
+}

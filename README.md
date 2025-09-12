@@ -1,26 +1,62 @@
 # Nexcart Velocity
 
-**Nexcart Velocity** is a modern, performant, and scalable e-commerce UI starter built with the following tech stack:
+**Nexcart Velocity** is a modern, performant, and scalable e-commerce UI starter built with cutting-edge technologies. This production-ready foundation provides everything you need to build high-quality online stores with exceptional user experiences.
 
-- **Next.js 15.5.3 (Turbopack)**
+## 🚀 Tech Stack
+
+- **Next.js 15.5.3 (Turbopack)** - Ultra-fast builds and hot reloading
 - **npm** as package manager
-- **React 19.1.1**
-- **TailwindCSS 4.1.13**
-- **Zustand 5.0.8** for state management
-- **Apollo Client + GraphQL** (planned integration)
-- **Storybook 9.1.5** for UI development and documentation
-- **Vitest 3.2.4 / Playwright 1.55.0 / Cypress 15.2.0 / Jest 30.1.3** for testing
+- **React 19.1.1** - Latest features with concurrent rendering
+- **TailwindCSS 4.1.13** - CSS-first styling with custom design tokens
+- **Zustand 5.0.8** - Lightweight state management with persistence
+- **Apollo Client + GraphQL** - Full integration with caching and error handling
+- **Storybook 9.1.5** - UI development, documentation, and design system
+- **Testing Suite**: Vitest, Playwright, Cypress, Jest with high coverage
+- **Performance**: Service Worker, PWA features, Core Web Vitals monitoring
+- **Accessibility**: WCAG 2.1 AA compliance with screen reader support
+- **SEO**: Comprehensive metadata, structured data, and social sharing
 
-## Features
+## ✨ Key Features
 
-- 🔐 Auth pages: Login and Register
-- 📦 Modular folder structure with atomic design (atoms, molecules, organisms)
-- 💾 Zustand store with persistent state hook
-- 🌐 SEO support with `next-seo`
-- 🎨 Fully styled with TailwindCSS and custom globals
-- 🧪 Full testing setup (Vitest, Cypress, Jest, Playwright)
-- 📚 Storybook with accessibility and documentation addons
-- 🖼️ Optimized image and SVG usage
+### 🛒 E-commerce Components
+
+- **ProductCard** - Lazy-loaded images, ratings, pricing, wishlist integration
+- **ShoppingCart** - Full cart management with quantity controls and totals
+- **Header** - Mega menu, search, cart badge, mobile navigation
+- **ProductGrid** - Infinite scroll, filtering, sorting, search integration
+- **Checkout Process** - Multi-step wizard with form validation
+
+### 🎨 Design System
+
+- **Button** - Multiple variants, sizes, loading states, icons
+- **Input** - Validation, error states, accessibility features
+- **Card** - Flexible layouts with header, content, footer
+- **Modal** - Focus trapping, keyboard navigation, backdrop blur
+- **Typography** - Fluid scaling, semantic HTML, readability optimized
+
+### 🔧 Developer Experience
+
+- **TypeScript** - 100% coverage with strict mode
+- **ESLint + Prettier** - Code quality and formatting
+- **Husky + Commitlint** - Pre-commit hooks and conventional commits
+- **Storybook** - Interactive component documentation
+- **Comprehensive Testing** - Unit, integration, and E2E tests
+
+### ⚡ Performance & PWA
+
+- **Service Worker** - Offline support, caching strategies
+- **Performance Monitoring** - Core Web Vitals tracking
+- **Image Optimization** - Next.js Image with WebP/AVIF support
+- **Bundle Analysis** - Webpack Bundle Analyzer integration
+- **PWA Features** - Installable, app shortcuts, push notifications
+
+### ♿ Accessibility & SEO
+
+- **WCAG 2.1 AA** compliance with axe-core integration
+- **Screen Reader** support with ARIA attributes and live regions
+- **Keyboard Navigation** - Full keyboard accessibility
+- **Focus Management** - Skip links, focus trapping, visible focus indicators
+- **SEO Optimization** - Meta tags, structured data, Open Graph, Twitter Cards
 
 ---
 

@@ -36,8 +36,49 @@ export function createApolloClient(initialState?: NormalizedCacheObject) {
 			typePolicies: {
 				Query: {
 					fields: {
-						// Define custom cache policies for better performance
-						products: relayStylePagination(['filter', 'sort']),
+						// Custom merge function for products pagination
+						products: {
+							keyArgs: ['filter', 'sort'],
+							merge(existing = { items: [], totalCount: 0, hasNextPage: false, hasPreviousPage: false }, incoming, { args }) {
+								// For pagination, merge the items
+								if (args?.pagination?.page && args.pagination.page > 1) {
+									return {
+										...incoming,
+										items: [...existing.items, ...incoming.items],
+									};
+								}
+								// For first page or new query, replace
+								return incoming;
+							},
+						},
+						// Cart cache updates
+						cart: {
+							merge(existing, incoming) {
+								return incoming;
+							},
+						},
+						// Wishlist cache updates
+						wishlist: {
+							merge(existing = [], incoming) {
+								return incoming;
+							},
+						},
+					},
+				},
+				// Product type policies
+				Product: {
+					fields: {
+						// Cache product rating updates
+						rating: {
+							merge(existing, incoming) {
+								return incoming;
+							},
+						},
+						reviewCount: {
+							merge(existing, incoming) {
+								return incoming;
+							},
+						},
 					},
 				},
 			},

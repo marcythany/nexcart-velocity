@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
+    "@apollo/server": "^4.10.4",
+    "@as-integrations/next": "^3.0.0",
     "clsx": "^2.1.1",
     "graphql": "^16.11.0",
     "lucide-react": "^0.544.0",

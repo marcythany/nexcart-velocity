@@ -1,5 +1,11 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import {
+	ApolloClient,
+	createHttpLink,
+	InMemoryCache,
+	NormalizedCacheObject,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { relayStylePagination } from '@apollo/client/utilities';
 
 // Create HTTP link
 const httpLink = createHttpLink({
@@ -21,35 +27,50 @@ const authLink = setContext((_, { headers }) => {
 	};
 });
 
-// Create Apollo Client
-export const apolloClient = new ApolloClient({
-	link: authLink.concat(httpLink),
-	cache: new InMemoryCache({
-		typePolicies: {
-			Query: {
-				fields: {
-					// Define custom cache policies for better performance
-					products: {
-						keyArgs: ['filter', 'sort'],
-						merge(existing = [], incoming) {
-							return [...existing, ...incoming];
-						},
+// Create Apollo Client function for SSR
+export function createApolloClient(initialState?: NormalizedCacheObject) {
+	return new ApolloClient({
+		ssrMode: typeof window === 'undefined', // Enable SSR mode on server
+		link: authLink.concat(httpLink),
+		cache: new InMemoryCache({
+			typePolicies: {
+				Query: {
+					fields: {
+						// Define custom cache policies for better performance
+						products: relayStylePagination(['filter', 'sort']),
 					},
 				},
 			},
+		}).restore(initialState || {}),
+		defaultOptions: {
+			watchQuery: {
+				fetchPolicy: 'cache-first',
+				errorPolicy: 'ignore',
+			},
+			query: {
+				fetchPolicy: 'cache-first',
+				errorPolicy: 'all',
+			},
+			mutate: {
+				errorPolicy: 'all',
+			},
 		},
-	}),
-	defaultOptions: {
-		watchQuery: {
-			fetchPolicy: 'cache-first',
-			errorPolicy: 'ignore',
-		},
-		query: {
-			fetchPolicy: 'cache-first',
-			errorPolicy: 'all',
-		},
-		mutate: {
-			errorPolicy: 'all',
-		},
-	},
-});
+	});
+}
+
+// Global Apollo Client instance for client-side
+let globalApolloClient: ApolloClient<NormalizedCacheObject> | undefined;
+
+export function getApolloClient(initialState?: NormalizedCacheObject) {
+	// For SSG and SSR always create a new Apollo Client
+	if (typeof window === 'undefined') {
+		return createApolloClient(initialState);
+	}
+
+	// Create the Apollo Client once in the client
+	if (!globalApolloClient) {
+		globalApolloClient = createApolloClient(initialState);
+	}
+
+	return globalApolloClient;
+}

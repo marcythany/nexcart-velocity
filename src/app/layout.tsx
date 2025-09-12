@@ -1,3 +1,4 @@
+import ApolloProvider from '@/components/atoms/ApolloProvider';
 import MotionProvider from '@/components/atoms/MotionProvider';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
@@ -115,7 +116,9 @@ export default function RootLayout({
 					Skip to main content
 				</a>
 
-				<MotionProvider>{children}</MotionProvider>
+				<ApolloProvider>
+					<MotionProvider>{children}</MotionProvider>
+				</ApolloProvider>
 
 				{/* Screen reader announcements */}
 				<div

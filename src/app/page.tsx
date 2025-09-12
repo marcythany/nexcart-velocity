@@ -4,66 +4,8 @@ import { ArrowRight, RefreshCw, Shield, Truck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../components/atoms/Button';
-import ProductCard from '../components/molecules/ProductCard';
+import ProductGrid from '../components/organisms/ProductGrid';
 import { Card, CardContent } from '../components/ui/Card';
-
-// Mock data - replace with GraphQL queries
-const featuredProducts = [
-	{
-		id: '1',
-		name: 'Premium Wireless Headphones',
-		price: 299.99,
-		originalPrice: 399.99,
-		rating: 4.8,
-		reviewCount: 1247,
-		image: '/api/placeholder/400/400',
-		description: 'High-quality wireless headphones with noise cancellation',
-		category: 'Electronics',
-		inStock: true,
-		isNew: true,
-		isOnSale: true,
-	},
-	{
-		id: '2',
-		name: 'Organic Cotton T-Shirt',
-		price: 49.99,
-		rating: 4.6,
-		reviewCount: 892,
-		image: '/api/placeholder/400/400',
-		description: 'Sustainable organic cotton t-shirt',
-		category: 'Clothing',
-		inStock: true,
-		isNew: false,
-		isOnSale: false,
-	},
-	{
-		id: '3',
-		name: 'Smart Fitness Watch',
-		price: 199.99,
-		originalPrice: 249.99,
-		rating: 4.7,
-		reviewCount: 2156,
-		image: '/api/placeholder/400/400',
-		description: 'Advanced fitness tracking with heart rate monitor',
-		category: 'Electronics',
-		inStock: true,
-		isNew: false,
-		isOnSale: true,
-	},
-	{
-		id: '4',
-		name: 'Ceramic Coffee Mug',
-		price: 24.99,
-		rating: 4.9,
-		reviewCount: 543,
-		image: '/api/placeholder/400/400',
-		description: 'Handcrafted ceramic coffee mug',
-		category: 'Home & Kitchen',
-		inStock: true,
-		isNew: false,
-		isOnSale: false,
-	},
-];
 
 const categories = [
 	{ name: 'Electronics', image: '/api/placeholder/300/200', count: 1250 },
@@ -73,29 +15,6 @@ const categories = [
 ];
 
 export default function HomePage() {
-	const handleAddToCart = (product: {
-		id: string;
-		name: string;
-		price: number;
-	}) => {
-		console.log('Add to cart:', product);
-		// TODO: Integrate with cart store
-	};
-
-	const handleToggleWishlist = (productId: string) => {
-		console.log('Toggle wishlist:', productId);
-		// TODO: Integrate with wishlist store
-	};
-
-	const handleQuickView = (product: {
-		id: string;
-		name: string;
-		price: number;
-	}) => {
-		console.log('Quick view:', product);
-		// TODO: Open modal with product details
-	};
-
 	return (
 		<div className='min-h-screen'>
 			{/* Hero Section */}
@@ -217,17 +136,11 @@ export default function HomePage() {
 							</Button>
 						</Link>
 					</div>
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-						{featuredProducts.map((product) => (
-							<ProductCard
-								key={product.id}
-								product={product}
-								onAddToCart={handleAddToCart}
-								onToggleWishlist={handleToggleWishlist}
-								onQuickView={handleQuickView}
-							/>
-						))}
-					</div>
+					<ProductGrid
+						sort='RATING_DESC'
+						limit={4}
+						className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'
+					/>
 				</div>
 			</section>
 

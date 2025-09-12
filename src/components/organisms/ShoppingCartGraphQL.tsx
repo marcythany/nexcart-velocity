@@ -146,8 +146,8 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 	// Empty cart
 	if (!cart || items.length === 0) {
 		return (
-			<Card className={className}>
-				<CardContent className='text-center py-12'>
+			<Card className={className} data-testid='cart-sidebar'>
+				<CardContent className='text-center py-12' data-testid='empty-cart'>
 					<div className='text-6xl mb-4'>🛒</div>
 					<h3 className='text-lg font-semibold mb-2'>Your cart is empty</h3>
 					<p className='text-gray-600 mb-4'>Add some products to get started</p>
@@ -196,7 +196,7 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 	};
 
 	return (
-		<Card className={className}>
+		<Card className={className} data-testid='cart-sidebar'>
 			<CardHeader>
 				<div className='flex justify-between items-center'>
 					<CardTitle>Shopping Cart ({items.length})</CardTitle>
@@ -225,6 +225,7 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 						}) => (
 							<div
 								key={item.id}
+								data-testid='cart-item'
 								className='flex gap-4 p-4 border border-gray-200 rounded-lg'
 							>
 								{/* Product Image */}
@@ -264,12 +265,16 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 									>
 										<Minus size={16} />
 									</Button>
-									<span className='w-8 text-center font-medium'>
+									<span
+										className='w-8 text-center font-medium'
+										data-testid='quantity-display'
+									>
 										{item.quantity}
 									</span>
 									<Button
 										variant='outline'
 										size='sm'
+										data-testid='quantity-increase'
 										onClick={() =>
 											handleUpdateQuantity(item.id, item.quantity + 1)
 										}
@@ -287,6 +292,7 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 									<Button
 										variant='ghost'
 										size='sm'
+										data-testid='remove-item'
 										onClick={() => handleRemoveItem(item.id)}
 										className='text-red-600 hover:text-red-800 p-1'
 									>
@@ -316,7 +322,9 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 					</div>
 					<div className='flex justify-between font-bold text-lg border-t border-gray-200 pt-2'>
 						<span>Total:</span>
-						<span>${cart.total?.toFixed(2) || '0.00'}</span>
+						<span data-testid='cart-total'>
+							${cart.total?.toFixed(2) || '0.00'}
+						</span>
 					</div>
 				</div>
 

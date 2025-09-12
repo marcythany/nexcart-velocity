@@ -56,6 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	return (
 		<motion.div
 			className={className}
+			data-testid='product-card'
 			whileHover={{ y: -4 }}
 			transition={{ type: 'spring', damping: 15, stiffness: 300 }}
 		>

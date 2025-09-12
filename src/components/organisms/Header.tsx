@@ -126,12 +126,16 @@ const Header: React.FC<HeaderProps> = ({
 							variant='ghost'
 							size='sm'
 							className='relative p-2'
+							data-testid='cart-button'
 							onClick={onCartClick}
 							aria-label={`Shopping cart (${cartItemCount} items)`}
 						>
 							<ShoppingCart size={20} />
 							{cartItemCount > 0 && (
-								<span className='absolute -top-1 -right-1 bg-primary text-text-inverted text-xs rounded-full w-5 h-5 flex items-center justify-center'>
+								<span
+									className='absolute -top-1 -right-1 bg-primary text-text-inverted text-xs rounded-full w-5 h-5 flex items-center justify-center'
+									data-testid='cart-badge'
+								>
 									{cartItemCount}
 								</span>
 							)}

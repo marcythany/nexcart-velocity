@@ -44,5 +44,7 @@ next-env.d.ts
 storybook-static
 
 /.kilocode
+/docs/*
+docs/
 /docs
 /test-results

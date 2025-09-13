@@ -82,7 +82,7 @@ const ProductCardGraphQL: React.FC<ProductCardGraphQLProps> = ({
 	isInWishlist = false,
 	className,
 }) => {
-	const { openModal, setCartOpen } = useUIStore();
+	const { openModal, setCartOpen, addToast } = useUIStore();
 	const { addItem } = useCartStore();
 
 	// Fetch product data
@@ -186,12 +186,23 @@ const ProductCardGraphQL: React.FC<ProductCardGraphQLProps> = ({
 					image: productData.image,
 				});
 
+				// Show success toast
+				addToast({
+					type: 'success',
+					message: `${productData.name} added to cart!`,
+					duration: 3000,
+				});
+
 				// Show cart sidebar
 				setCartOpen(true);
 			}
 		} catch (error) {
 			console.error('Failed to add to cart:', error);
-			// You could show a toast notification here
+			addToast({
+				type: 'error',
+				message: 'Failed to add item to cart. Please try again.',
+				duration: 4000,
+			});
 		}
 	};
 
@@ -201,13 +212,28 @@ const ProductCardGraphQL: React.FC<ProductCardGraphQLProps> = ({
 				await removeFromWishlistMutation({
 					variables: { productId },
 				});
+				addToast({
+					type: 'info',
+					message: 'Removed from wishlist',
+					duration: 2000,
+				});
 			} else {
 				await addToWishlistMutation({
 					variables: { productId },
 				});
+				addToast({
+					type: 'success',
+					message: 'Added to wishlist!',
+					duration: 3000,
+				});
 			}
 		} catch (error) {
 			console.error('Failed to update wishlist:', error);
+			addToast({
+				type: 'error',
+				message: 'Failed to update wishlist. Please try again.',
+				duration: 4000,
+			});
 		}
 	};
 

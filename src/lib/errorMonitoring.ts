@@ -243,7 +243,7 @@ export class ErrorMonitoring {
 			}
 
 			localStorage.setItem('app_errors', JSON.stringify(errors));
-		} catch (e) {
+		} catch {
 			// Ignore localStorage errors
 		}
 	}
@@ -255,7 +255,7 @@ export class ErrorMonitoring {
 		try {
 			const stored = localStorage.getItem('app_errors');
 			return stored ? JSON.parse(stored) : [];
-		} catch (e) {
+		} catch {
 			return [];
 		}
 	}

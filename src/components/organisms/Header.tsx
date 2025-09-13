@@ -71,23 +71,24 @@ const Header: React.FC<HeaderProps> = ({
 					</nav>
 
 					{/* Search Bar */}
-					<div className='hidden md:flex flex-1 max-w-md mx-8'>
+					<div className='hidden md:flex flex-1 max-w-lg mx-8'>
 						<form onSubmit={handleSearchSubmit} className='w-full'>
-							<div className='relative'>
+							<div className='relative group'>
 								<Input
 									type='search'
-									placeholder='Search products...'
+									placeholder='Search for products, brands and more...'
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
-									className='pr-10'
+									className='pr-12 pl-4 py-2 border-2 border-border rounded-full focus:border-primary focus:ring-0 transition-all duration-200 bg-bg-card'
 								/>
 								<Button
 									type='submit'
 									variant='ghost'
 									size='sm'
-									className='absolute right-1 top-1/2 -translate-y-1/2 p-1'
+									className='absolute right-1 top-1/2 -translate-y-1/2 p-2 rounded-full hover:bg-primary/10 transition-colors'
+									aria-label='Search'
 								>
-									<Search size={16} />
+									<Search size={18} />
 								</Button>
 							</div>
 						</form>
@@ -168,23 +169,24 @@ const Header: React.FC<HeaderProps> = ({
 
 				{/* Mobile Search Bar */}
 				{isMobileMenuOpen && (
-					<div className='md:hidden py-4 border-t border-border'>
+					<div className='md:hidden py-4 px-4 border-t border-border bg-bg-alt/50'>
 						<form onSubmit={handleSearchSubmit}>
-							<div className='relative'>
+							<div className='relative group'>
 								<Input
 									type='search'
-									placeholder='Search products...'
+									placeholder='Search for products, brands and more...'
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
-									className='pr-10'
+									className='pr-12 pl-4 py-3 border-2 border-border rounded-full focus:border-primary focus:ring-0 transition-all duration-200 bg-bg-card text-base'
 								/>
 								<Button
 									type='submit'
 									variant='ghost'
 									size='sm'
-									className='absolute right-1 top-1/2 -translate-y-1/2 p-1'
+									className='absolute right-1 top-1/2 -translate-y-1/2 p-2 rounded-full hover:bg-primary/10 transition-colors'
+									aria-label='Search'
 								>
-									<Search size={16} />
+									<Search size={18} />
 								</Button>
 							</div>
 						</form>

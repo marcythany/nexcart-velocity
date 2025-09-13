@@ -136,58 +136,91 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 			<div className='flex flex-col lg:flex-row gap-6 mb-6'>
 				{/* Filters Sidebar */}
 				<aside className='lg:w-64 space-y-6'>
-					<div>
-						<h3 className='font-semibold mb-3'>Price Range</h3>
-						<div className='space-y-2'>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								Under $25
+					{/* Price Range */}
+					<div className='bg-bg-alt p-4 rounded-lg'>
+						<h3 className='font-semibold mb-4 text-text-primary'>
+							Price Range
+						</h3>
+						<div className='space-y-3'>
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm'>Under $25</span>
 							</label>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								$25 - $50
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm'>$25 - $50</span>
 							</label>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								$50 - $100
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm'>$50 - $100</span>
 							</label>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								Over $100
-							</label>
-						</div>
-					</div>
-
-					<div>
-						<h3 className='font-semibold mb-3'>Rating</h3>
-						<div className='space-y-2'>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								4+ stars
-							</label>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								3+ stars
-							</label>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								2+ stars
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm'>Over $100</span>
 							</label>
 						</div>
 					</div>
 
-					<div>
-						<h3 className='font-semibold mb-3'>Availability</h3>
-						<div className='space-y-2'>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' defaultChecked />
-								In Stock
+					{/* Rating */}
+					<div className='bg-bg-alt p-4 rounded-lg'>
+						<h3 className='font-semibold mb-4 text-text-primary'>
+							Customer Rating
+						</h3>
+						<div className='space-y-3'>
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm flex items-center gap-1'>
+									★★★★★{' '}
+									<span className='text-text-secondary ml-1'>4+ stars</span>
+								</span>
 							</label>
-							<label className='flex items-center'>
-								<input type='checkbox' className='mr-2' />
-								On Sale
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm flex items-center gap-1'>
+									★★★★☆{' '}
+									<span className='text-text-secondary ml-1'>3+ stars</span>
+								</span>
+							</label>
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm flex items-center gap-1'>
+									★★★☆☆{' '}
+									<span className='text-text-secondary ml-1'>2+ stars</span>
+								</span>
 							</label>
 						</div>
+					</div>
+
+					{/* Availability */}
+					<div className='bg-bg-alt p-4 rounded-lg'>
+						<h3 className='font-semibold mb-4 text-text-primary'>
+							Availability
+						</h3>
+						<div className='space-y-3'>
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 accent-primary'
+									defaultChecked
+								/>
+								<span className='text-sm'>In Stock</span>
+							</label>
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm'>On Sale</span>
+							</label>
+							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+								<input type='checkbox' className='mr-3 accent-primary' />
+								<span className='text-sm'>New Arrivals</span>
+							</label>
+						</div>
+					</div>
+
+					{/* Clear Filters */}
+					<div className='pt-4'>
+						<button className='w-full py-2 px-4 bg-primary text-text-inverted rounded-lg hover:bg-primary-hover transition-colors font-medium'>
+							Clear All Filters
+						</button>
 					</div>
 				</aside>
 
@@ -199,13 +232,38 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 							Showing {items.length} of {totalCount} products
 						</p>
 						<div className='flex items-center gap-4'>
-							<select className='px-3 py-2 border border-gray-300 rounded-md text-sm'>
-								<option>Sort by: Featured</option>
-								<option>Price: Low to High</option>
-								<option>Price: High to Low</option>
-								<option>Rating</option>
-								<option>Newest</option>
-							</select>
+							<div className='relative'>
+								<select
+									value={sort}
+									onChange={() => {
+										// This would trigger a refetch with new sort
+										// For now, just update the UI
+									}}
+									className='appearance-none px-4 py-2 pr-8 border border-border rounded-lg bg-bg-card hover:bg-bg-alt focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm font-medium transition-colors cursor-pointer'
+								>
+									<option value='NEWEST'>Newest First</option>
+									<option value='NAME_ASC'>Name A-Z</option>
+									<option value='NAME_DESC'>Name Z-A</option>
+									<option value='PRICE_ASC'>Price: Low to High</option>
+									<option value='PRICE_DESC'>Price: High to Low</option>
+									<option value='RATING_DESC'>Highest Rated</option>
+								</select>
+								<div className='absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none'>
+									<svg
+										className='w-4 h-4 text-text-secondary'
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'
+									>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M19 9l-7 7-7-7'
+										/>
+									</svg>
+								</div>
+							</div>
 							<div className='flex gap-2'>
 								<button className='p-2 border border-gray-300 rounded-md hover:bg-gray-50'>
 									<svg
@@ -242,7 +300,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 					</div>
 
 					{/* Product grid */}
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6'>
 						{items.map((product: { id: string }) => (
 							<ProductCardGraphQL
 								key={product.id}
@@ -251,41 +309,6 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 							/>
 						))}
 					</div>
-
-					{/* Load more */}
-					{hasNextPage && (
-						<div className='text-center mt-8'>
-							<button
-								onClick={() => {
-									fetchMore({
-										variables: {
-											pagination: {
-												page: Math.ceil(items.length / limit) + 1,
-												limit,
-											},
-										},
-										updateQuery: (prev, { fetchMoreResult }) => {
-											if (!fetchMoreResult) return prev;
-											return {
-												...prev,
-												products: {
-													...prev.products,
-													items: [
-														...prev.products.items,
-														...fetchMoreResult.products.items,
-													],
-													hasNextPage: fetchMoreResult.products.hasNextPage,
-												},
-											};
-										},
-									});
-								}}
-								className='px-6 py-3 bg-primary text-text-inverted rounded-lg hover:bg-primary-hover font-medium transition-colors'
-							>
-								Load More Products
-							</button>
-						</div>
-					)}
 				</div>
 			</div>
 

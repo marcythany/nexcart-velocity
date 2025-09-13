@@ -168,14 +168,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					</div>
 
 					{/* Price */}
-					<div className='flex items-center gap-2 mb-3'>
-						<span className='font-bold text-lg text-text-primary'>
-							${product.price.toFixed(2)}
-						</span>
-						{product.originalPrice && product.originalPrice > product.price && (
-							<span className='text-sm text-text-secondary line-through'>
-								${product.originalPrice.toFixed(2)}
+					<div className='mb-3'>
+						<div className='flex items-baseline gap-2'>
+							<span className='font-bold text-xl text-text-primary'>
+								${product.price.toFixed(2)}
 							</span>
+							{product.originalPrice &&
+								product.originalPrice > product.price && (
+									<>
+										<span className='text-sm text-text-secondary line-through'>
+											${product.originalPrice.toFixed(2)}
+										</span>
+										<span className='text-sm font-medium text-success'>
+											({discountPercentage}% off)
+										</span>
+									</>
+								)}
+						</div>
+						{product.originalPrice && product.originalPrice > product.price && (
+							<p className='text-xs text-success font-medium mt-1'>
+								Save ${(product.originalPrice - product.price).toFixed(2)}
+							</p>
 						)}
 					</div>
 

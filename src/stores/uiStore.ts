@@ -24,6 +24,14 @@ interface UIState {
 	// Notifications
 	notifications: NotificationState[];
 
+	// Toast notifications
+	toasts: Array<{
+		id: string;
+		type: 'success' | 'error' | 'warning' | 'info';
+		message: string;
+		duration?: number;
+	}>;
+
 	// Theme
 	theme: 'light' | 'dark' | 'system';
 
@@ -42,6 +50,10 @@ interface UIState {
 	removeNotification: (id: string) => void;
 	clearNotifications: () => void;
 
+	addToast: (toast: Omit<UIState['toasts'][0], 'id'>) => void;
+	removeToast: (id: string) => void;
+	clearToasts: () => void;
+
 	setTheme: (theme: 'light' | 'dark' | 'system') => void;
 
 	toggleCart: () => void;
@@ -55,6 +67,7 @@ export const useUIStore = create<UIState>((set, get) => ({
 	modals: [],
 	isLoading: false,
 	notifications: [],
+	toasts: [],
 	theme: 'system',
 	isCartOpen: false,
 	isMobileMenuOpen: false,
@@ -113,6 +126,35 @@ export const useUIStore = create<UIState>((set, get) => ({
 
 	clearNotifications: () => {
 		set({ notifications: [] });
+	},
+
+	addToast: (toast) => {
+		const id = `toast-${Date.now()}-${Math.random()}`;
+		const newToast = {
+			...toast,
+			id,
+		};
+
+		set((state) => ({
+			toasts: [...state.toasts, newToast],
+		}));
+
+		// Auto-remove toast after duration
+		if (newToast.duration !== 0) {
+			setTimeout(() => {
+				get().removeToast(id);
+			}, newToast.duration || 4000);
+		}
+	},
+
+	removeToast: (id) => {
+		set((state) => ({
+			toasts: state.toasts.filter((toast) => toast.id !== id),
+		}));
+	},
+
+	clearToasts: () => {
+		set({ toasts: [] });
 	},
 
 	setTheme: (theme) => {

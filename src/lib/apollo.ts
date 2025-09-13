@@ -5,7 +5,6 @@ import {
 	NormalizedCacheObject,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { relayStylePagination } from '@apollo/client/utilities';
 
 // Create HTTP link
 const httpLink = createHttpLink({
@@ -39,7 +38,16 @@ export function createApolloClient(initialState?: NormalizedCacheObject) {
 						// Custom merge function for products pagination
 						products: {
 							keyArgs: ['filter', 'sort'],
-							merge(existing = { items: [], totalCount: 0, hasNextPage: false, hasPreviousPage: false }, incoming, { args }) {
+							merge(
+								existing = {
+									items: [],
+									totalCount: 0,
+									hasNextPage: false,
+									hasPreviousPage: false,
+								},
+								incoming,
+								{ args }
+							) {
 								// For pagination, merge the items
 								if (args?.pagination?.page && args.pagination.page > 1) {
 									return {
@@ -53,13 +61,14 @@ export function createApolloClient(initialState?: NormalizedCacheObject) {
 						},
 						// Cart cache updates
 						cart: {
-							merge(existing, incoming) {
+							merge(_existing, incoming) {
 								return incoming;
 							},
 						},
 						// Wishlist cache updates
 						wishlist: {
-							merge(existing = [], incoming) {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							merge(_existing = [], incoming) {
 								return incoming;
 							},
 						},
@@ -70,12 +79,12 @@ export function createApolloClient(initialState?: NormalizedCacheObject) {
 					fields: {
 						// Cache product rating updates
 						rating: {
-							merge(existing, incoming) {
+							merge(_existing, incoming) {
 								return incoming;
 							},
 						},
 						reviewCount: {
-							merge(existing, incoming) {
+							merge(_existing, incoming) {
 								return incoming;
 							},
 						},

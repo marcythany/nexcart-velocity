@@ -1,5 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Minus, Plus, Trash2 } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 import Button from '../atoms/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
@@ -230,9 +231,11 @@ const ShoppingCartGraphQL: React.FC<ShoppingCartGraphQLProps> = ({
 							>
 								{/* Product Image */}
 								<div className='flex-shrink-0'>
-									<img
+									<Image
 										src={item.image}
 										alt={item.name}
+										width={64}
+										height={64}
 										className='w-16 h-16 object-cover rounded'
 									/>
 								</div>

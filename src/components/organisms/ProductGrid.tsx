@@ -80,7 +80,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 	if (loading) {
 		return (
 			<div
-				className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 ${className}`}
+				className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 ${className}`}
 			>
 				{Array.from({ length: limit }).map((_, index) => (
 					<div
@@ -342,7 +342,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 					</div>
 
 					{/* Product grid */}
-					<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6'>
+					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'>
 						{items.map((product: { id: string }) => (
 							<ProductCardGraphQL
 								key={product.id}

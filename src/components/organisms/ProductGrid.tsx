@@ -80,14 +80,28 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 	if (loading) {
 		return (
 			<div
-				className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ${className}`}
+				className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 ${className}`}
 			>
 				{Array.from({ length: limit }).map((_, index) => (
-					<div key={index} className='animate-pulse'>
-						<div className='bg-gray-300 aspect-square rounded-lg mb-4'></div>
-						<div className='h-4 bg-gray-300 rounded mb-2'></div>
-						<div className='h-4 bg-gray-300 rounded w-3/4 mb-4'></div>
-						<div className='h-10 bg-gray-300 rounded'></div>
+					<div
+						key={index}
+						className='animate-pulse bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden'
+					>
+						<div className='bg-gray-200 aspect-square'></div>
+						<div className='p-4 space-y-3'>
+							<div className='h-4 bg-gray-200 rounded'></div>
+							<div className='h-4 bg-gray-200 rounded w-3/4'></div>
+							<div className='flex items-center gap-1'>
+								<div className='flex gap-1'>
+									{[...Array(5)].map((_, i) => (
+										<div key={i} className='w-3 h-3 bg-gray-200 rounded'></div>
+									))}
+								</div>
+								<div className='h-3 bg-gray-200 rounded w-12'></div>
+							</div>
+							<div className='h-6 bg-gray-200 rounded w-20'></div>
+							<div className='h-10 bg-gray-200 rounded'></div>
+						</div>
 					</div>
 				))}
 			</div>
@@ -97,15 +111,17 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 	// Error state
 	if (error) {
 		return (
-			<div className={`text-center py-12 ${className}`}>
-				<div className='text-6xl mb-4'>😵</div>
-				<h3 className='text-xl font-semibold mb-2'>Failed to load products</h3>
-				<p className='text-gray-600 mb-4'>
+			<div className={`text-center py-16 ${className}`}>
+				<div className='text-6xl mb-6'>😵</div>
+				<h3 className='text-2xl font-bold text-gray-900 mb-3'>
+					Failed to load products
+				</h3>
+				<p className='text-gray-600 mb-6 max-w-md mx-auto'>
 					{error.message || 'Something went wrong while loading products.'}
 				</p>
 				<button
 					onClick={() => window.location.reload()}
-					className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700'
+					className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors duration-200 shadow-sm hover:shadow-md'
 				>
 					Try Again
 				</button>
@@ -116,10 +132,12 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 	// No products
 	if (!data?.products?.items || data.products.items.length === 0) {
 		return (
-			<div className={`text-center py-12 ${className}`}>
-				<div className='text-6xl mb-4'>🛒</div>
-				<h3 className='text-xl font-semibold mb-2'>No products found</h3>
-				<p className='text-gray-600'>
+			<div className={`text-center py-16 ${className}`}>
+				<div className='text-6xl mb-6'>🛒</div>
+				<h3 className='text-2xl font-bold text-gray-900 mb-3'>
+					No products found
+				</h3>
+				<p className='text-gray-600 max-w-md mx-auto'>
 					{search ?
 						`No products match "${search}"`
 					:	'No products available in this category.'}
@@ -137,88 +155,112 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 				{/* Filters Sidebar */}
 				<aside className='lg:w-64 space-y-6'>
 					{/* Price Range */}
-					<div className='bg-bg-alt p-4 rounded-lg'>
-						<h3 className='font-semibold mb-4 text-text-primary'>
+					<div className='bg-white p-6 rounded-lg border border-gray-200 shadow-sm'>
+						<h3 className='font-semibold mb-4 text-gray-900 text-lg'>
 							Price Range
 						</h3>
 						<div className='space-y-3'>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm'>Under $25</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm text-gray-700'>Under $25</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm'>$25 - $50</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm text-gray-700'>$25 - $50</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm'>$50 - $100</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm text-gray-700'>$50 - $100</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm'>Over $100</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm text-gray-700'>Over $100</span>
 							</label>
 						</div>
 					</div>
 
 					{/* Rating */}
-					<div className='bg-bg-alt p-4 rounded-lg'>
-						<h3 className='font-semibold mb-4 text-text-primary'>
+					<div className='bg-white p-6 rounded-lg border border-gray-200 shadow-sm'>
+						<h3 className='font-semibold mb-4 text-gray-900 text-lg'>
 							Customer Rating
 						</h3>
 						<div className='space-y-3'>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm flex items-center gap-1'>
-									★★★★★{' '}
-									<span className='text-text-secondary ml-1'>4+ stars</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm flex items-center gap-1 text-gray-700'>
+									★★★★★ <span className='text-gray-500 ml-1'>4+ stars</span>
 								</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm flex items-center gap-1'>
-									★★★★☆{' '}
-									<span className='text-text-secondary ml-1'>3+ stars</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm flex items-center gap-1 text-gray-700'>
+									★★★★☆ <span className='text-gray-500 ml-1'>3+ stars</span>
 								</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm flex items-center gap-1'>
-									★★★☆☆{' '}
-									<span className='text-text-secondary ml-1'>2+ stars</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm flex items-center gap-1 text-gray-700'>
+									★★★☆☆ <span className='text-gray-500 ml-1'>2+ stars</span>
 								</span>
 							</label>
 						</div>
 					</div>
 
 					{/* Availability */}
-					<div className='bg-bg-alt p-4 rounded-lg'>
-						<h3 className='font-semibold mb-4 text-text-primary'>
+					<div className='bg-white p-6 rounded-lg border border-gray-200 shadow-sm'>
+						<h3 className='font-semibold mb-4 text-gray-900 text-lg'>
 							Availability
 						</h3>
 						<div className='space-y-3'>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
 								<input
 									type='checkbox'
-									className='mr-3 accent-primary'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
 									defaultChecked
 								/>
-								<span className='text-sm'>In Stock</span>
+								<span className='text-sm text-gray-700'>In Stock</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm'>On Sale</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm text-gray-700'>On Sale</span>
 							</label>
-							<label className='flex items-center cursor-pointer hover:bg-bg-card p-2 rounded transition-colors'>
-								<input type='checkbox' className='mr-3 accent-primary' />
-								<span className='text-sm'>New Arrivals</span>
+							<label className='flex items-center cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors'>
+								<input
+									type='checkbox'
+									className='mr-3 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+								/>
+								<span className='text-sm text-gray-700'>New Arrivals</span>
 							</label>
 						</div>
 					</div>
 
 					{/* Clear Filters */}
 					<div className='pt-4'>
-						<button className='w-full py-2 px-4 bg-primary text-text-inverted rounded-lg hover:bg-primary-hover transition-colors font-medium'>
+						<button className='w-full py-3 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm hover:shadow-md'>
 							Clear All Filters
 						</button>
 					</div>
@@ -227,8 +269,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 				{/* Main Content */}
 				<div className='flex-1'>
 					{/* Results header */}
-					<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6'>
-						<p className='text-gray-600'>
+					<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8'>
+						<p className='text-gray-600 font-medium'>
 							Showing {items.length} of {totalCount} products
 						</p>
 						<div className='flex items-center gap-4'>
@@ -239,7 +281,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 										// This would trigger a refetch with new sort
 										// For now, just update the UI
 									}}
-									className='appearance-none px-4 py-2 pr-8 border border-border rounded-lg bg-bg-card hover:bg-bg-alt focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm font-medium transition-colors cursor-pointer'
+									className='appearance-none px-4 py-2.5 pr-8 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-medium transition-colors cursor-pointer shadow-sm'
 								>
 									<option value='NEWEST'>Newest First</option>
 									<option value='NAME_ASC'>Name A-Z</option>
@@ -250,7 +292,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 								</select>
 								<div className='absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none'>
 									<svg
-										className='w-4 h-4 text-text-secondary'
+										className='w-4 h-4 text-gray-400'
 										fill='none'
 										stroke='currentColor'
 										viewBox='0 0 24 24'
@@ -265,9 +307,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 								</div>
 							</div>
 							<div className='flex gap-2'>
-								<button className='p-2 border border-gray-300 rounded-md hover:bg-gray-50'>
+								<button className='p-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200'>
 									<svg
-										className='w-5 h-5'
+										className='w-5 h-5 text-gray-600'
 										fill='none'
 										stroke='currentColor'
 										viewBox='0 0 24 24'
@@ -280,9 +322,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 										/>
 									</svg>
 								</button>
-								<button className='p-2 border border-gray-300 rounded-md hover:bg-gray-50'>
+								<button className='p-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200'>
 									<svg
-										className='w-5 h-5'
+										className='w-5 h-5 text-gray-600'
 										fill='none'
 										stroke='currentColor'
 										viewBox='0 0 24 24'
@@ -300,7 +342,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 					</div>
 
 					{/* Product grid */}
-					<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6'>
+					<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6'>
 						{items.map((product: { id: string }) => (
 							<ProductCardGraphQL
 								key={product.id}
@@ -314,7 +356,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 
 			{/* Load more button at bottom */}
 			{hasNextPage && (
-				<div className='text-center mt-8'>
+				<div className='text-center mt-12'>
 					<button
 						onClick={() => {
 							fetchMore({
@@ -343,7 +385,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 								},
 							});
 						}}
-						className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium'
+						className='px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors duration-200 shadow-sm hover:shadow-md'
 					>
 						Load More Products
 					</button>

@@ -132,53 +132,161 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 
 	return (
 		<div className={className}>
-			{/* Results header */}
-			<div className='flex justify-between items-center mb-6'>
-				<p className='text-gray-600'>
-					Showing {items.length} of {totalCount} products
-				</p>
-				{hasNextPage && (
-					<button
-						onClick={() => {
-							fetchMore({
-								variables: {
-									pagination: {
-										page: Math.ceil(items.length / limit) + 1,
-										limit,
-									},
-								},
-								updateQuery: (prev, { fetchMoreResult }) => {
-									if (!fetchMoreResult) return prev;
-									return {
-										...prev,
-										products: {
-											...prev.products,
-											items: [
-												...prev.products.items,
-												...fetchMoreResult.products.items,
-											],
-											hasNextPage: fetchMoreResult.products.hasNextPage,
-										},
-									};
-								},
-							});
-						}}
-						className='px-4 py-2 text-blue-600 hover:text-blue-800 font-medium'
-					>
-						Load More
-					</button>
-				)}
-			</div>
+			{/* Filters and Results Header */}
+			<div className='flex flex-col lg:flex-row gap-6 mb-6'>
+				{/* Filters Sidebar */}
+				<aside className='lg:w-64 space-y-6'>
+					<div>
+						<h3 className='font-semibold mb-3'>Price Range</h3>
+						<div className='space-y-2'>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								Under $25
+							</label>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								$25 - $50
+							</label>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								$50 - $100
+							</label>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								Over $100
+							</label>
+						</div>
+					</div>
 
-			{/* Product grid */}
-			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-				{items.map((product: { id: string }) => (
-					<ProductCardGraphQL
-						key={product.id}
-						productId={product.id}
-						className='w-full'
-					/>
-				))}
+					<div>
+						<h3 className='font-semibold mb-3'>Rating</h3>
+						<div className='space-y-2'>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								4+ stars
+							</label>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								3+ stars
+							</label>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								2+ stars
+							</label>
+						</div>
+					</div>
+
+					<div>
+						<h3 className='font-semibold mb-3'>Availability</h3>
+						<div className='space-y-2'>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' defaultChecked />
+								In Stock
+							</label>
+							<label className='flex items-center'>
+								<input type='checkbox' className='mr-2' />
+								On Sale
+							</label>
+						</div>
+					</div>
+				</aside>
+
+				{/* Main Content */}
+				<div className='flex-1'>
+					{/* Results header */}
+					<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6'>
+						<p className='text-gray-600'>
+							Showing {items.length} of {totalCount} products
+						</p>
+						<div className='flex items-center gap-4'>
+							<select className='px-3 py-2 border border-gray-300 rounded-md text-sm'>
+								<option>Sort by: Featured</option>
+								<option>Price: Low to High</option>
+								<option>Price: High to Low</option>
+								<option>Rating</option>
+								<option>Newest</option>
+							</select>
+							<div className='flex gap-2'>
+								<button className='p-2 border border-gray-300 rounded-md hover:bg-gray-50'>
+									<svg
+										className='w-5 h-5'
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'
+									>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M4 6h16M4 10h16M4 14h16M4 18h16'
+										/>
+									</svg>
+								</button>
+								<button className='p-2 border border-gray-300 rounded-md hover:bg-gray-50'>
+									<svg
+										className='w-5 h-5'
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'
+									>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z'
+										/>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					{/* Product grid */}
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+						{items.map((product: { id: string }) => (
+							<ProductCardGraphQL
+								key={product.id}
+								productId={product.id}
+								className='w-full'
+							/>
+						))}
+					</div>
+
+					{/* Load more */}
+					{hasNextPage && (
+						<div className='text-center mt-8'>
+							<button
+								onClick={() => {
+									fetchMore({
+										variables: {
+											pagination: {
+												page: Math.ceil(items.length / limit) + 1,
+												limit,
+											},
+										},
+										updateQuery: (prev, { fetchMoreResult }) => {
+											if (!fetchMoreResult) return prev;
+											return {
+												...prev,
+												products: {
+													...prev.products,
+													items: [
+														...prev.products.items,
+														...fetchMoreResult.products.items,
+													],
+													hasNextPage: fetchMoreResult.products.hasNextPage,
+												},
+											};
+										},
+									});
+								}}
+								className='px-6 py-3 bg-primary text-text-inverted rounded-lg hover:bg-primary-hover font-medium transition-colors'
+							>
+								Load More Products
+							</button>
+						</div>
+					)}
+				</div>
 			</div>
 
 			{/* Load more button at bottom */}

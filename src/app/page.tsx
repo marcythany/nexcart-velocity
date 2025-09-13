@@ -17,34 +17,90 @@ const categories = [
 export default function HomePage() {
 	return (
 		<div className='min-h-screen'>
-			{/* Hero Section */}
-			<section className='bg-gradient-to-r from-primary to-primary-hover text-text-inverted py-20'>
-				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-					<div className='text-center'>
-						<h1 className='text-4xl md:text-6xl font-bold mb-6'>
-							Welcome to Nexcart Velocity
-						</h1>
-						<p className='text-xl md:text-2xl mb-8 max-w-3xl mx-auto'>
-							Discover amazing products at unbeatable prices. Fast shipping,
-							secure payments, and exceptional customer service.
-						</p>
-						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-							<Button
-								size='lg'
-								className='bg-text-inverted text-primary hover:bg-bg-alt'
-							>
-								Shop Now
-								<ArrowRight className='ml-2' size={20} />
-							</Button>
-							<Button
-								size='lg'
-								variant='outline'
-								className='border-text-inverted text-text-inverted hover:bg-text-inverted hover:text-primary'
-							>
-								Learn More
-							</Button>
+			{/* Hero Carousel Section */}
+			<section className='relative overflow-hidden'>
+				<div className='h-96 md:h-[500px] relative'>
+					{/* Slide 1 */}
+					<div className='absolute inset-0 bg-gradient-to-r from-primary to-primary-hover flex items-center'>
+						<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
+							<div className='max-w-lg'>
+								<h1 className='text-3xl md:text-5xl font-bold text-text-inverted mb-4'>
+									Welcome to Nexcart Velocity
+								</h1>
+								<p className='text-lg md:text-xl text-text-inverted/90 mb-6'>
+									Discover amazing products at unbeatable prices. Fast shipping,
+									secure payments, and exceptional customer service.
+								</p>
+								<div className='flex flex-col sm:flex-row gap-3'>
+									<Button
+										size='lg'
+										className='bg-text-inverted text-primary hover:bg-bg-alt'
+									>
+										Shop Now
+										<ArrowRight className='ml-2' size={20} />
+									</Button>
+									<Button
+										size='lg'
+										variant='outline'
+										className='border-text-inverted text-text-inverted hover:bg-text-inverted hover:text-primary'
+									>
+										Learn More
+									</Button>
+								</div>
+							</div>
 						</div>
 					</div>
+
+					{/* Slide 2 */}
+					<div className='absolute inset-0 bg-gradient-to-r from-success to-success-hover flex items-center translate-x-full'>
+						<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
+							<div className='max-w-lg ml-auto text-right'>
+								<h1 className='text-3xl md:text-5xl font-bold text-text-inverted mb-4'>
+									New Arrivals Daily
+								</h1>
+								<p className='text-lg md:text-xl text-text-inverted/90 mb-6'>
+									Be the first to shop our latest collection. Exclusive deals
+									and trending products updated every day.
+								</p>
+								<Button
+									size='lg'
+									className='bg-text-inverted text-success hover:bg-bg-alt'
+								>
+									View New Arrivals
+									<ArrowRight className='ml-2' size={20} />
+								</Button>
+							</div>
+						</div>
+					</div>
+
+					{/* Slide 3 */}
+					<div className='absolute inset-0 bg-gradient-to-r from-warning to-warning-hover flex items-center translate-x-full'>
+						<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
+							<div className='max-w-lg'>
+								<h1 className='text-3xl md:text-5xl font-bold text-text-primary mb-4'>
+									Free Shipping on $50+
+								</h1>
+								<p className='text-lg md:text-xl text-text-primary/90 mb-6'>
+									Shop now and enjoy free delivery on orders over $50. No codes
+									required, no hidden fees.
+								</p>
+								<Button
+									size='lg'
+									className='bg-primary text-text-inverted hover:bg-primary-hover'
+								>
+									Start Shopping
+									<ArrowRight className='ml-2' size={20} />
+								</Button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Carousel Controls */}
+				<div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
+					<button className='w-3 h-3 rounded-full bg-text-inverted/50 hover:bg-text-inverted transition-colors'></button>
+					<button className='w-3 h-3 rounded-full bg-text-inverted transition-colors'></button>
+					<button className='w-3 h-3 rounded-full bg-text-inverted/50 hover:bg-text-inverted transition-colors'></button>
 				</div>
 			</section>
 

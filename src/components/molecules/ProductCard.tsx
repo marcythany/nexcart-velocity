@@ -122,6 +122,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
 							<ShoppingCart size={16} />
 						</Button>
 					</div>
+
+					{/* Quick Add Overlay */}
+					<div className='absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center'>
+						<Button
+							size='lg'
+							className='bg-primary hover:bg-primary-hover text-text-inverted shadow-lg transform scale-90 group-hover:scale-100 transition-transform'
+							disabled={!product.inStock}
+							onClick={(e: React.MouseEvent) => {
+								e.stopPropagation();
+								onAddToCart(product);
+							}}
+							aria-label={`Add ${product.name} to cart`}
+						>
+							<ShoppingCart size={20} className='mr-2' />
+							{product.inStock ? 'Quick Add' : 'Out of Stock'}
+						</Button>
+					</div>
 				</div>
 
 				{/* Product Info */}

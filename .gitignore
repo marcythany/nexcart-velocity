@@ -48,3 +48,5 @@ storybook-static
 docs/
 /docs
 /test-results
+/playwright-report
+.husky/

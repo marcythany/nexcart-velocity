@@ -332,8 +332,8 @@
 	}
 
 	/* TYPOGRAPHY */
-	h1:not(.hero-title),
-	.h1 {
+	h1:not(.hero-title):not([class*='text-']),
+	.h1:not([class*='text-']) {
 		@apply text-[var(--text-3xl)] leading-[1.1] font-extrabold tracking-[-0.02em];
 		font-family: var(--font-display);
 	}

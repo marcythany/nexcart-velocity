@@ -116,11 +116,11 @@ export default function HomePage() {
 							<div className='relative h-full flex items-center justify-center'>
 								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-6 md:py-10'>
 									<div className='max-w-lg mx-auto md:mx-0'>
-										<h1 className='hero-title text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight tracking-tight'>
+										<h1 className='hero-title text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight tracking-tight !text-3xl md:!text-5xl lg:!text-6xl'>
 											{slide.title}
 										</h1>
 										<p
-											className={`text-lg md:text-xl ${slide.textColor} mb-6 leading-relaxed max-w-2xl`}
+											className={`text-lg md:!text-xl ${slide.textColor} mb-6 leading-relaxed max-w-2xl`}
 										>
 											{slide.description}
 										</p>

@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
 	experimental: {
 		optimizePackageImports: ['lucide-react', 'motion'],
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'fakestoreapi.com',
+				port: '',
+				pathname: '/img/**',
+			},
+		],
+	},
 };
 
 export default nextConfig;

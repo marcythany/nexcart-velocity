@@ -101,14 +101,36 @@
 	/* GRID UTILITIES */
 	.product-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 1rem;
 		row-gap: 1.5rem;
 	}
 
+	@media (min-width: 640px) {
+		.product-grid {
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 1.25rem;
+		}
+	}
+
 	@media (min-width: 768px) {
 		.product-grid {
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 			gap: 1.5rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.product-grid {
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 1.5rem;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.product-grid {
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 2rem;
 		}
 	}
 

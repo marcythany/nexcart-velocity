@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import React from 'react';
+import React, { useState } from 'react';
 import ProductCardGraphQL from '../molecules/ProductCardGraphQL';
 
 // GraphQL Query for products
@@ -64,6 +64,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 	className = '',
 	showFilters = true,
 }) => {
+	const [loadMoreLoading, setLoadMoreLoading] = useState(false);
+	const [loadMoreError, setLoadMoreError] = useState<string | null>(null);
+
 	const { loading, error, data, fetchMore } = useQuery(GET_PRODUCTS, {
 		variables: {
 			filter: {
@@ -403,20 +406,26 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 				{/* Load more button at bottom */}
 				{hasNextPage && (
 					<div className='text-center mt-12'>
+						{loadMoreError && (
+							<div className='mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm'>
+								{loadMoreError}
+							</div>
+						)}
 						<button
-							onClick={() => {
-								fetchMore({
-									variables: {
-										pagination: {
-											page: Math.ceil(items.length / limit) + 1,
-											limit,
+							onClick={async () => {
+								setLoadMoreLoading(true);
+								setLoadMoreError(null);
+								try {
+									await fetchMore({
+										variables: {
+											pagination: {
+												page: Math.ceil(items.length / limit) + 1,
+												limit,
+											},
 										},
-									},
-									updateQuery: (prev, { fetchMoreResult }) => {
-										if (!fetchMoreResult) return prev;
-										return {
-											...prev,
-											products: {
+										updateQuery: (prev, { fetchMoreResult }) => {
+											if (!fetchMoreResult) return prev;
+											return {
 												...prev,
 												products: {
 													...prev.products,
@@ -426,14 +435,46 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 													],
 													hasNextPage: fetchMoreResult.products.hasNextPage,
 												},
-											},
-										};
-									},
-								});
+											};
+										},
+									});
+								} catch (err) {
+									setLoadMoreError(
+										err instanceof Error ?
+											err.message
+										:	'Failed to load more products'
+									);
+								} finally {
+									setLoadMoreLoading(false);
+								}
 							}}
-							className='px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors duration-200 shadow-sm hover:shadow-md'
+							disabled={loadMoreLoading}
+							className='px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed font-medium transition-colors duration-200 shadow-sm hover:shadow-md flex items-center gap-2'
 						>
-							Load More Products
+							{loadMoreLoading ?
+								<>
+									<svg
+										className='animate-spin h-4 w-4'
+										fill='none'
+										viewBox='0 0 24 24'
+									>
+										<circle
+											className='opacity-25'
+											cx='12'
+											cy='12'
+											r='10'
+											stroke='currentColor'
+											strokeWidth='4'
+										/>
+										<path
+											className='opacity-75'
+											fill='currentColor'
+											d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+										/>
+									</svg>
+									Loading...
+								</>
+							:	'Load More Products'}
 						</button>
 					</div>
 				)}
@@ -442,7 +483,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 	} else {
 		return (
 			<div>
-				<div className={`${className} product-grid`}>
+				<div
+					className={`${className} ${className.includes('grid') ? '' : 'product-grid'}`}
+				>
 					{items.map((product: { id: string }) => (
 						<ProductCardGraphQL
 							key={product.id}
@@ -455,20 +498,26 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 				{/* Load more button at bottom */}
 				{hasNextPage && (
 					<div className='text-center mt-12'>
+						{loadMoreError && (
+							<div className='mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm'>
+								{loadMoreError}
+							</div>
+						)}
 						<button
-							onClick={() => {
-								fetchMore({
-									variables: {
-										pagination: {
-											page: Math.ceil(items.length / limit) + 1,
-											limit,
+							onClick={async () => {
+								setLoadMoreLoading(true);
+								setLoadMoreError(null);
+								try {
+									await fetchMore({
+										variables: {
+											pagination: {
+												page: Math.ceil(items.length / limit) + 1,
+												limit,
+											},
 										},
-									},
-									updateQuery: (prev, { fetchMoreResult }) => {
-										if (!fetchMoreResult) return prev;
-										return {
-											...prev,
-											products: {
+										updateQuery: (prev, { fetchMoreResult }) => {
+											if (!fetchMoreResult) return prev;
+											return {
 												...prev,
 												products: {
 													...prev.products,
@@ -478,14 +527,46 @@ const ProductGrid: React.FC<ProductGridProps> = ({
 													],
 													hasNextPage: fetchMoreResult.products.hasNextPage,
 												},
-											},
-										};
-									},
-								});
+											};
+										},
+									});
+								} catch (err) {
+									setLoadMoreError(
+										err instanceof Error ?
+											err.message
+										:	'Failed to load more products'
+									);
+								} finally {
+									setLoadMoreLoading(false);
+								}
 							}}
-							className='px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors duration-200 shadow-sm hover:shadow-md'
+							disabled={loadMoreLoading}
+							className='px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed font-medium transition-colors duration-200 shadow-sm hover:shadow-md flex items-center gap-2'
 						>
-							Load More Products
+							{loadMoreLoading ?
+								<>
+									<svg
+										className='animate-spin h-4 w-4'
+										fill='none'
+										viewBox='0 0 24 24'
+									>
+										<circle
+											className='opacity-25'
+											cx='12'
+											cy='12'
+											r='10'
+											stroke='currentColor'
+											strokeWidth='4'
+										/>
+										<path
+											className='opacity-75'
+											fill='currentColor'
+											d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+										/>
+									</svg>
+									Loading...
+								</>
+							:	'Load More Products'}
 						</button>
 					</div>
 				)}

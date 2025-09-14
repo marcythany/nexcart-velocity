@@ -32,8 +32,8 @@ const transformedProducts = products.map((product) => ({
 	isOnSale: Math.random() > 0.8, // random
 	variants: [],
 	tags: [product.category.replace(/'/g, '').replace(/\s+/g, '-')], // simple tags
-	createdAt: new Date(),
-	updatedAt: new Date(),
+	createdAt: new Date('2025-09-14T02:22:22.937Z'),
+	updatedAt: new Date('2025-09-14T02:22:22.937Z'),
 }));
 
 // Generate the export string

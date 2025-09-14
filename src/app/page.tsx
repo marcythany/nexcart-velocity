@@ -3,6 +3,7 @@
 import { ArrowRight, RefreshCw, Shield, Truck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Button from '../components/atoms/Button';
 import ProductGrid from '../components/organisms/ProductGrid';
 import { Card, CardContent } from '../components/ui/Card';
@@ -30,7 +31,64 @@ const categories = [
 	},
 ];
 
+const carouselSlides = [
+	{
+		id: 1,
+		title: 'Welcome to Nexcart Velocity',
+		description:
+			'Discover amazing products at unbeatable prices. Fast shipping, secure payments, and exceptional customer service.',
+		buttonText: 'Shop Now',
+		buttonVariant: 'primary',
+		gradient: 'from-blue-600 via-blue-700 to-blue-800',
+		textColor: 'text-blue-100',
+	},
+	{
+		id: 2,
+		title: 'New Arrivals Daily',
+		description:
+			'Be the first to shop our latest collection. Exclusive deals and trending products updated every day.',
+		buttonText: 'View New Arrivals',
+		buttonVariant: 'primary',
+		gradient: 'from-green-500 to-green-600',
+		textColor: 'text-green-100',
+	},
+	{
+		id: 3,
+		title: 'Free Shipping on $50+',
+		description:
+			'Shop now and enjoy free delivery on orders over $50. No codes required, no hidden fees.',
+		buttonText: 'Start Shopping',
+		buttonVariant: 'primary',
+		gradient: 'from-purple-600 to-purple-700',
+		textColor: 'text-purple-100',
+	},
+];
+
 export default function HomePage() {
+	const [currentSlide, setCurrentSlide] = useState(0);
+
+	// Auto-advance carousel every 5 seconds
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+		}, 5000);
+		return () => clearInterval(interval);
+	}, []);
+
+	const goToSlide = (index: number) => {
+		setCurrentSlide(index);
+	};
+
+	const goToPrevSlide = () => {
+		setCurrentSlide((prev) =>
+			prev === 0 ? carouselSlides.length - 1 : prev - 1
+		);
+	};
+
+	const goToNextSlide = () => {
+		setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+	};
+
 	return (
 		<main className='min-h-screen'>
 			{/* Hero Carousel Section */}
@@ -41,87 +99,105 @@ export default function HomePage() {
 						<div className='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")]'></div>
 					</div>
 
-					{/* Slide 1 */}
-					<div className='absolute inset-0 flex items-center'>
-						<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
-							<div className='max-w-lg'>
-								<h1 className='text-3xl md:text-5xl font-bold text-white mb-4 leading-tight'>
-									Welcome to Nexcart Velocity
-								</h1>
-								<p className='text-lg md:text-xl text-blue-100 mb-8 leading-relaxed'>
-									Discover amazing products at unbeatable prices. Fast shipping,
-									secure payments, and exceptional customer service.
-								</p>
-								<div className='flex flex-col sm:flex-row gap-4'>
-									<Button
-										size='lg'
-										className='bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
-									>
-										Shop Now
-										<ArrowRight className='ml-2' size={20} />
-									</Button>
-									<Button
-										size='lg'
-										variant='outline'
-										className='border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-3 rounded-lg transition-all duration-200'
-									>
-										Learn More
-									</Button>
+					{/* Carousel Slides */}
+					{carouselSlides.map((slide, index) => (
+						<div
+							key={slide.id}
+							className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
+								index === currentSlide ? 'translate-x-0' : 'translate-x-full'
+							}`}
+						>
+							<div
+								className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`}
+							></div>
+							<div className='relative h-full flex items-center'>
+								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
+									<div className='max-w-lg'>
+										<h1 className='text-3xl md:text-5xl font-bold text-white mb-4 leading-tight'>
+											{slide.title}
+										</h1>
+										<p
+											className={`text-lg md:text-xl ${slide.textColor} mb-8 leading-relaxed`}
+										>
+											{slide.description}
+										</p>
+										<div className='flex flex-col sm:flex-row gap-4'>
+											<Button
+												size='lg'
+												className='bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
+											>
+												{slide.buttonText}
+												<ArrowRight className='ml-2' size={20} />
+											</Button>
+											<Button
+												size='lg'
+												variant='outline'
+												className='border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-3 rounded-lg transition-all duration-200'
+											>
+												Learn More
+											</Button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+					))}
+
+					{/* Carousel Controls */}
+					<div className='absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3'>
+						{carouselSlides.map((_, index) => (
+							<button
+								key={index}
+								onClick={() => goToSlide(index)}
+								className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+									index === currentSlide ? 'bg-white' : (
+										'bg-white/50 hover:bg-white'
+									)
+								}`}
+								aria-label={`Go to slide ${index + 1}`}
+							></button>
+						))}
 					</div>
 
-					{/* Slide 2 */}
-					<div className='absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 flex items-center translate-x-full'>
-						<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
-							<div className='max-w-lg ml-auto text-right'>
-								<h1 className='text-3xl md:text-5xl font-bold text-white mb-4 leading-tight'>
-									New Arrivals Daily
-								</h1>
-								<p className='text-lg md:text-xl text-green-100 mb-8 leading-relaxed'>
-									Be the first to shop our latest collection. Exclusive deals
-									and trending products updated every day.
-								</p>
-								<Button
-									size='lg'
-									className='bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
-								>
-									View New Arrivals
-									<ArrowRight className='ml-2' size={20} />
-								</Button>
-							</div>
-						</div>
-					</div>
-
-					{/* Slide 3 */}
-					<div className='absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-700 flex items-center translate-x-full'>
-						<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
-							<div className='max-w-lg'>
-								<h1 className='text-3xl md:text-5xl font-bold text-white mb-4 leading-tight'>
-									Free Shipping on $50+
-								</h1>
-								<p className='text-lg md:text-xl text-purple-100 mb-8 leading-relaxed'>
-									Shop now and enjoy free delivery on orders over $50. No codes
-									required, no hidden fees.
-								</p>
-								<Button
-									size='lg'
-									className='bg-white text-purple-600 hover:bg-purple-50 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
-								>
-									Start Shopping
-									<ArrowRight className='ml-2' size={20} />
-								</Button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				{/* Carousel Controls */}
-				<div className='absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3'>
-					<button className='w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors duration-200'></button>
-					<button className='w-3 h-3 rounded-full bg-white transition-colors duration-200'></button>
-					<button className='w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors duration-200'></button>
+					{/* Navigation Arrows */}
+					<button
+						onClick={goToPrevSlide}
+						className='absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-all duration-200'
+						aria-label='Previous slide'
+					>
+						<svg
+							className='w-6 h-6'
+							fill='none'
+							stroke='currentColor'
+							viewBox='0 0 24 24'
+						>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								strokeWidth={2}
+								d='M15 19l-7-7 7-7'
+							/>
+						</svg>
+					</button>
+					<button
+						onClick={goToNextSlide}
+						className='absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-all duration-200'
+						aria-label='Next slide'
+					>
+						<svg
+							className='w-6 h-6'
+							fill='none'
+							stroke='currentColor'
+							viewBox='0 0 24 24'
+						>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								strokeWidth={2}
+								d='M9 5l7 7-7 7'
+							/>
+						</svg>
+					</button>
 				</div>
 			</section>
 

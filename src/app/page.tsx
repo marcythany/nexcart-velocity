@@ -92,8 +92,8 @@ export default function HomePage() {
 	return (
 		<main className='min-h-screen'>
 			{/* Hero Carousel Section */}
-			<section className='relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 min-h-[400px] md:min-h-[500px]'>
-				<div className='h-96 md:h-[500px] lg:h-[600px] relative'>
+			<section className='relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 min-h-[320px] md:min-h-[420px]'>
+				<div className='h-80 md:h-[420px] lg:h-[480px] relative overflow-hidden'>
 					{/* Background Pattern */}
 					<div className='absolute inset-0 opacity-10'>
 						<div className='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")]'></div>
@@ -103,23 +103,24 @@ export default function HomePage() {
 					{carouselSlides.map((slide, index) => (
 						<div
 							key={slide.id}
-							className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
-								index === currentSlide ? 'translate-x-0'
-								: index < currentSlide ? '-translate-x-full'
-								: 'translate-x-full'
+							className={`absolute inset-0 transition-transform duration-700 ease-in-out ${
+								index === currentSlide ? 'translate-x-0 z-10'
+								: index < currentSlide ? '-translate-x-full z-0'
+								: 'translate-x-full z-0'
 							}`}
+							style={{ willChange: 'transform' }}
 						>
 							<div
 								className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`}
 							></div>
 							<div className='relative h-full flex items-center justify-center'>
-								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-12'>
+								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-6 md:py-10'>
 									<div className='max-w-lg mx-auto md:mx-0'>
-										<h1 className='hero-title text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight'>
+										<h1 className='hero-title text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight tracking-tight'>
 											{slide.title}
 										</h1>
 										<p
-											className={`text-xl md:text-2xl ${slide.textColor} mb-8 leading-relaxed max-w-3xl`}
+											className={`text-lg md:text-xl ${slide.textColor} mb-6 leading-relaxed max-w-2xl`}
 										>
 											{slide.description}
 										</p>
@@ -146,7 +147,7 @@ export default function HomePage() {
 					))}
 
 					{/* Carousel Controls */}
-					<div className='absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10'>
+					<div className='absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20'>
 						{carouselSlides.map((_, index) => (
 							<button
 								key={index}
@@ -164,7 +165,7 @@ export default function HomePage() {
 					{/* Navigation Arrows */}
 					<button
 						onClick={goToPrevSlide}
-						className='absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200 z-10'
+						className='absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200 z-20'
 						aria-label='Previous slide'
 					>
 						<svg
@@ -183,7 +184,7 @@ export default function HomePage() {
 					</button>
 					<button
 						onClick={goToNextSlide}
-						className='absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200 z-10'
+						className='absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200 z-20'
 						aria-label='Next slide'
 					>
 						<svg

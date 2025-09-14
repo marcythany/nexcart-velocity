@@ -98,6 +98,20 @@
 		will-change: transform;
 	}
 
+	/* GRID UTILITIES */
+	.product-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1rem;
+		row-gap: 1.5rem;
+	}
+
+	@media (min-width: 768px) {
+		.product-grid {
+			gap: 1.5rem;
+		}
+	}
+
 	/* TEXTURE SYSTEM */
 	.textured-bg {
 		background-color: rgb(var(--color-bg-base));

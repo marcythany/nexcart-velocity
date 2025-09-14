@@ -1,5 +1,6 @@
 import ApolloProvider from '@/components/atoms/ApolloProvider';
 import MotionProvider from '@/components/atoms/MotionProvider';
+import Footer from '@/components/organisms/Footer';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import './globals.css';
@@ -119,6 +120,8 @@ export default function RootLayout({
 				<ApolloProvider>
 					<MotionProvider>{children}</MotionProvider>
 				</ApolloProvider>
+
+				<Footer />
 
 				{/* Screen reader announcements */}
 				<div

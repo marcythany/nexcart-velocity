@@ -55,17 +55,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
 	return (
 		<motion.div
-			className={`${className} product-card min-w-0`}
+			className={`${className} product-card w-full`} // Removed max-w-sm mx-auto to let grid control sizing
 			data-testid='product-card'
 			whileHover={{ y: -6, scale: 1.02 }}
 			transition={{ type: 'spring', damping: 20, stiffness: 300 }}
 		>
 			<Card
-				className='group overflow-hidden cursor-pointer bg-white border border-gray-200 hover:shadow-xl hover:border-blue-300 transition-all duration-300 h-full'
+				className='group overflow-hidden cursor-pointer bg-white border border-gray-200 hover:shadow-xl hover:border-blue-300 transition-all duration-300 h-full w-full' // Added w-full
 				padding='none'
 			>
 				{/* Product Image */}
-				<div className='relative aspect-[4/3] sm:aspect-square overflow-hidden bg-gray-100'>
+				<div className='relative aspect-[4/3] sm:aspect-square overflow-hidden bg-gray-100 w-full'>
+					{' '}
+					{/* Added w-full */}
 					<Image
 						src={product.image}
 						alt={product.name}
@@ -73,9 +75,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 						className='object-cover transition-transform duration-500 group-hover:scale-110'
 						sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw'
 					/>
-
 					{/* Badges */}
-					<div className='absolute top-3 left-3 flex flex-col gap-2 z-10'>
+					<div className='absolute top-3 left-3 grid grid-rows-auto gap-2 z-10'>
 						{product.isNew && (
 							<motion.span
 								initial={{ scale: 0 }}
@@ -105,9 +106,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 							</motion.span>
 						)}
 					</div>
-
 					{/* Quick Actions */}
-					<div className='absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10'>
+					<div className='absolute top-3 right-3 grid grid-rows-auto gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10'>
 						<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
 							<Button
 								size='sm'
@@ -144,7 +144,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 							</Button>
 						</motion.div>
 					</div>
-
 					{/* Quick Add Overlay */}
 					<div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-400 flex items-end justify-center pb-6'>
 						<motion.div
@@ -170,11 +169,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 				</div>
 
 				{/* Product Info */}
-				<div className='p-5 bg-white flex flex-col'>
+				<div className='p-5 bg-white grid grid-rows-[auto_auto_auto_1fr] w-full'>
+					{' '}
+					{/* Added w-full */}
 					<h3 className='font-bold text-gray-900 mb-3 line-clamp-2 text-lg leading-snug'>
 						{product.name}
 					</h3>
-
 					{/* Rating */}
 					<div className='flex items-center gap-2 mb-4'>
 						<div className='flex gap-0.5'>
@@ -194,10 +194,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 							({product.reviewCount})
 						</span>
 					</div>
-
 					{/* Price */}
 					<div className='mb-5'>
-						<div className='flex items-baseline gap-3 mb-2'>
+						<div className='flex items-baseline gap-3 mb-2 flex-wrap'>
+							{' '}
+							{/* Added flex-wrap */}
 							<span className='price font-bold text-2xl text-gray-900'>
 								${product.price.toFixed(2)}
 							</span>
@@ -219,9 +220,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 							</p>
 						)}
 					</div>
-
 					{/* Add to Cart Button */}
-					<div className='mt-auto'>
+					<div className='w-full'>
+						{' '}
+						{/* Added w-full wrapper */}
 						<Button
 							className={`w-full font-semibold py-3 px-6 rounded-xl transition-all duration-300 text-base ${
 								product.inStock ?

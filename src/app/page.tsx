@@ -32,7 +32,7 @@ const categories = [
 
 export default function HomePage() {
 	return (
-		<div className='min-h-screen'>
+		<main className='min-h-screen'>
 			{/* Hero Carousel Section */}
 			<section className='relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800'>
 				<div className='h-96 md:h-[500px] relative'>
@@ -240,6 +240,7 @@ export default function HomePage() {
 					<ProductGrid
 						sort='RATING_DESC'
 						limit={4}
+						showFilters={false}
 						className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'
 					/>
 				</div>
@@ -253,21 +254,29 @@ export default function HomePage() {
 						Subscribe to our newsletter and be the first to know about new
 						products, exclusive deals, and special offers.
 					</p>
-					<div className='flex flex-col sm:flex-row gap-4 max-w-lg mx-auto'>
+					<form className='flex flex-col sm:flex-row gap-4 max-w-lg mx-auto'>
+						<label htmlFor='newsletter-email' className='sr-only'>
+							Email address for newsletter
+						</label>
 						<input
+							id='newsletter-email'
 							type='email'
 							placeholder='Enter your email address'
 							className='flex-1 px-6 py-4 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 text-gray-900 placeholder-gray-500 shadow-lg'
+							required
 						/>
-						<Button className='bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'>
+						<Button
+							type='submit'
+							className='bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
+						>
 							Subscribe
 						</Button>
-					</div>
+					</form>
 					<p className='text-blue-200 text-sm mt-4'>
 						We respect your privacy. Unsubscribe at any time.
 					</p>
 				</div>
 			</section>
-		</div>
+		</main>
 	);
 }

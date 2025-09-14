@@ -1,133 +1,5 @@
-// Mock Database - In-memory data store for development
-// In production, replace with a real database (PostgreSQL, MongoDB, etc.)
+import { MockProduct } from '@/lib/db/mockData';
 
-export interface MockProduct {
-	id: string;
-	name: string;
-	price: number;
-	originalPrice?: number;
-	rating: number;
-	reviewCount: number;
-	image: string;
-	images: string[];
-	description: string;
-	category: string;
-	inStock: boolean;
-	isNew: boolean;
-	isOnSale: boolean;
-	variants: MockProductVariant[];
-	tags: string[];
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface MockProductVariant {
-	id: string;
-	name: string;
-	value: string;
-	available: boolean;
-	price?: number;
-}
-
-export interface MockCart {
-	id: string;
-	userId?: string;
-	items: MockCartItem[];
-	total: number;
-	subtotal: number;
-	tax: number;
-	shipping: number;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface MockCartItem {
-	id: string;
-	productId: string;
-	name: string;
-	price: number;
-	quantity: number;
-	image: string;
-	variant?: string;
-}
-
-export interface MockUser {
-	id: string;
-	email: string;
-	password: string; // In production, store hashed passwords
-	name: string;
-	avatar?: string;
-	role: 'CUSTOMER' | 'ADMIN';
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface MockOrder {
-	id: string;
-	userId: string;
-	items: MockOrderItem[];
-	total: number;
-	subtotal: number;
-	tax: number;
-	shipping: number;
-	status: 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
-	shippingAddress: MockAddress;
-	billingAddress: MockAddress;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface MockOrderItem {
-	id: string;
-	productId: string;
-	name: string;
-	price: number;
-	quantity: number;
-	image: string;
-	variant?: string;
-}
-
-export interface MockAddress {
-	street: string;
-	city: string;
-	state: string;
-	zipCode: string;
-	country: string;
-}
-
-export interface MockReview {
-	id: string;
-	productId: string;
-	userId: string;
-	userName: string;
-	rating: number;
-	title: string;
-	comment: string;
-	createdAt: Date;
-	updatedAt: Date;
-	helpful: number;
-}
-
-export interface MockCategory {
-	id: string;
-	name: string;
-	slug: string;
-	description?: string;
-	image?: string;
-	parentId?: string;
-	children: MockCategory[];
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface MockWishlistItem {
-	id: string;
-	productId: string;
-	userId: string;
-	addedAt: Date;
-}
-
-// Mock Data - Real products from Fake Store API
 export const mockProducts: MockProduct[] = [
 	{
 		id: '1',
@@ -145,8 +17,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: true,
 		variants: [],
 		tags: ['mens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '2',
@@ -167,8 +39,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['mens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '3',
@@ -186,8 +58,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['mens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '4',
@@ -205,8 +77,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['mens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '5',
@@ -226,8 +98,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['jewelery'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '6',
@@ -247,8 +119,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['jewelery'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '7',
@@ -268,8 +140,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['jewelery'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '8',
@@ -289,8 +161,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['jewelery'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '9',
@@ -308,8 +180,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['electronics'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '10',
@@ -327,8 +199,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['electronics'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '11',
@@ -346,8 +218,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['electronics'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '12',
@@ -365,8 +237,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: true,
 		variants: [],
 		tags: ['electronics'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '13',
@@ -384,8 +256,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: true,
 		variants: [],
 		tags: ['electronics'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '14',
@@ -403,8 +275,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['electronics'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '15',
@@ -422,8 +294,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['womens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '16',
@@ -441,8 +313,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['womens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '17',
@@ -460,8 +332,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['womens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '18',
@@ -479,8 +351,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: true,
 		variants: [],
 		tags: ['womens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '19',
@@ -498,8 +370,8 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['womens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 	{
 		id: '20',
@@ -517,82 +389,7 @@ export const mockProducts: MockProduct[] = [
 		isOnSale: false,
 		variants: [],
 		tags: ['womens-clothing'],
-		createdAt: new Date('2025-09-14T02:22:22.937Z'),
-		updatedAt: new Date('2025-09-14T02:22:22.937Z'),
+		createdAt: '2025-09-14T02:22:22.937Z',
+		updatedAt: '2025-09-14T02:22:22.937Z',
 	},
 ];
-
-export const mockCategories: MockCategory[] = [
-	{
-		id: '1',
-		name: 'Electronics',
-		slug: 'electronics',
-		description: 'Electronic devices and gadgets',
-		image: '/api/placeholder?width=300&height=200&category=category',
-		children: [],
-		createdAt: new Date('2024-01-01'),
-		updatedAt: new Date('2024-01-01'),
-	},
-	{
-		id: '2',
-		name: 'Clothing',
-		slug: 'clothing',
-		description: 'Fashion and apparel',
-		image: '/api/placeholder?width=300&height=200&category=category',
-		children: [],
-		createdAt: new Date('2024-01-01'),
-		updatedAt: new Date('2024-01-01'),
-	},
-	{
-		id: '3',
-		name: 'Home & Kitchen',
-		slug: 'home-kitchen',
-		description: 'Home and kitchen essentials',
-		image: '/api/placeholder?width=300&height=200&category=category',
-		children: [],
-		createdAt: new Date('2024-01-01'),
-		updatedAt: new Date('2024-01-01'),
-	},
-	{
-		id: '4',
-		name: 'Sports & Outdoors',
-		slug: 'sports-outdoors',
-		description: 'Sports and outdoor equipment',
-		image: '/api/placeholder?width=300&height=200&category=category',
-		children: [],
-		createdAt: new Date('2024-01-01'),
-		updatedAt: new Date('2024-01-01'),
-	},
-];
-
-export const mockUsers: MockUser[] = [
-	{
-		id: '1',
-		email: 'admin@nexcart.com',
-		password: 'admin123', // In production, use hashed passwords
-		name: 'Admin User',
-		role: 'ADMIN',
-		createdAt: new Date('2024-01-01'),
-		updatedAt: new Date('2024-01-01'),
-	},
-	{
-		id: '2',
-		email: 'user@nexcart.com',
-		password: 'user123',
-		name: 'Test User',
-		role: 'CUSTOMER',
-		createdAt: new Date('2024-01-01'),
-		updatedAt: new Date('2024-01-01'),
-	},
-];
-
-// In-memory storage (replace with database in production)
-export const storage = {
-	products: [...mockProducts],
-	categories: [...mockCategories],
-	users: [...mockUsers],
-	carts: [] as MockCart[],
-	orders: [] as MockOrder[],
-	reviews: [] as MockReview[],
-	wishlists: [] as MockWishlistItem[],
-};

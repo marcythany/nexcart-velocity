@@ -9,8 +9,11 @@ const sampleProduct: Product = {
 	originalPrice: 399.99,
 	rating: 4.8,
 	reviewCount: 1247,
-	image: '/api/placeholder/400/400',
-	images: ['/api/placeholder/400/400', '/api/placeholder/400/400'],
+	image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
+	images: [
+		'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
+		'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
+	],
 	description:
 		'High-quality wireless headphones with noise cancellation and premium sound quality.',
 	category: 'Electronics',

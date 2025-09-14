@@ -11,22 +11,22 @@ import { Card, CardContent } from '../components/ui/Card';
 const categories = [
 	{
 		name: 'Electronics',
-		image: '/api/placeholder?width=300&height=200&category=category',
+		image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
 		count: 1250,
 	},
 	{
 		name: 'Clothing',
-		image: '/api/placeholder?width=300&height=200&category=category',
+		image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png',
 		count: 890,
 	},
 	{
 		name: 'Home & Kitchen',
-		image: '/api/placeholder?width=300&height=200&category=category',
+		image: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_t.png',
 		count: 654,
 	},
 	{
 		name: 'Sports & Outdoors',
-		image: '/api/placeholder?width=300&height=200&category=category',
+		image: 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_t.png',
 		count: 432,
 	},
 ];
@@ -104,7 +104,9 @@ export default function HomePage() {
 						<div
 							key={slide.id}
 							className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
-								index === currentSlide ? 'translate-x-0' : 'translate-x-full'
+								index === currentSlide ? 'translate-x-0'
+								: index < currentSlide ? '-translate-x-full'
+								: 'translate-x-full'
 							}`}
 						>
 							<div

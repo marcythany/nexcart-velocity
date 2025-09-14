@@ -11,7 +11,7 @@ const sampleItems: CartItem[] = [
 		name: 'Premium Wireless Headphones',
 		price: 299.99,
 		quantity: 1,
-		image: '/api/placeholder/400/400',
+		image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
 		variant: 'Black',
 	},
 	{
@@ -20,7 +20,7 @@ const sampleItems: CartItem[] = [
 		name: 'Organic Cotton T-Shirt',
 		price: 49.99,
 		quantity: 2,
-		image: '/api/placeholder/400/400',
+		image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png',
 		variant: 'Medium',
 	},
 	{
@@ -29,7 +29,7 @@ const sampleItems: CartItem[] = [
 		name: 'Ceramic Coffee Mug',
 		price: 24.99,
 		quantity: 1,
-		image: '/api/placeholder/400/400',
+		image: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_t.png',
 	},
 ];
 
@@ -79,7 +79,7 @@ export const ManyItems: Story = {
 				name: 'Smart Fitness Watch',
 				price: 199.99,
 				quantity: 1,
-				image: '/api/placeholder/400/400',
+				image: 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_t.png',
 			},
 			{
 				id: '5',
@@ -87,7 +87,7 @@ export const ManyItems: Story = {
 				name: 'Bluetooth Speaker',
 				price: 79.99,
 				quantity: 3,
-				image: '/api/placeholder/400/400',
+				image: 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_t.png',
 				variant: 'Blue',
 			},
 		],
@@ -103,7 +103,7 @@ export const HighValueOrder: Story = {
 				name: 'Premium Laptop',
 				price: 1299.99,
 				quantity: 1,
-				image: '/api/placeholder/400/400',
+				image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
 			},
 			{
 				id: '2',
@@ -111,7 +111,7 @@ export const HighValueOrder: Story = {
 				name: 'Wireless Mouse',
 				price: 49.99,
 				quantity: 2,
-				image: '/api/placeholder/400/400',
+				image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png',
 			},
 		],
 	},
@@ -126,7 +126,8 @@ export const FreeShipping: Story = {
 				name: 'Book Collection',
 				price: 25.99,
 				quantity: 3,
-				image: '/api/placeholder/400/400',
+				image:
+					'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_t.png',
 			},
 		],
 	},

@@ -13,25 +13,25 @@ const categoryData = {
 	electronics: {
 		name: 'Electronics',
 		description: 'Discover the latest in technology and gadgets',
-		image: '/api/placeholder?width=1200&height=400&category=electronics',
+		image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_t.png',
 		productCount: 1250,
 	},
 	clothing: {
 		name: 'Clothing',
 		description: 'Fashion and apparel for every style',
-		image: '/api/placeholder?width=1200&height=400&category=clothing',
+		image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png',
 		productCount: 890,
 	},
 	'home-kitchen': {
 		name: 'Home & Kitchen',
 		description: 'Everything you need for your home',
-		image: '/api/placeholder?width=1200&height=400&category=home',
+		image: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_t.png',
 		productCount: 654,
 	},
 	'sports-outdoors': {
 		name: 'Sports & Outdoors',
 		description: 'Gear up for your active lifestyle',
-		image: '/api/placeholder?width=1200&height=400&category=sports',
+		image: 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_t.png',
 		productCount: 432,
 	},
 };

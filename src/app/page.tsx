@@ -92,8 +92,8 @@ export default function HomePage() {
 	return (
 		<main className='min-h-screen'>
 			{/* Hero Carousel Section */}
-			<section className='relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 min-h-[320px] md:min-h-[420px]'>
-				<div className='h-80 md:h-[420px] lg:h-[480px] relative overflow-hidden'>
+			<section className='relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 min-h-[400px] md:min-h-[500px] lg:min-h-[600px]'>
+				<div className='h-[400px] md:h-[500px] lg:h-[600px] relative'>
 					{/* Background Pattern */}
 					<div className='absolute inset-0 opacity-10'>
 						<div className='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")]'></div>
@@ -114,20 +114,20 @@ export default function HomePage() {
 								className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`}
 							></div>
 							<div className='relative h-full flex items-center justify-center'>
-								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-6 md:py-10'>
-									<div className='max-w-lg mx-auto md:mx-0'>
-										<h1 className='hero-title text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight tracking-tight !text-3xl md:!text-5xl lg:!text-6xl'>
+								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-16 lg:py-20'>
+									<div className='max-w-2xl mx-auto text-center'>
+										<h1 className='hero-title text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight'>
 											{slide.title}
 										</h1>
 										<p
-											className={`text-lg md:!text-xl ${slide.textColor} mb-6 leading-relaxed max-w-2xl`}
+											className={`text-xl md:text-2xl ${slide.textColor} mb-8 leading-relaxed max-w-3xl mx-auto`}
 										>
 											{slide.description}
 										</p>
-										<div className='flex flex-col sm:flex-row gap-4'>
+										<div className='flex flex-col sm:flex-row gap-4 justify-center'>
 											<Button
 												size='lg'
-												className='bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
+												className='bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200'
 											>
 												{slide.buttonText}
 												<ArrowRight className='ml-2' size={20} />
@@ -135,7 +135,7 @@ export default function HomePage() {
 											<Button
 												size='lg'
 												variant='outline'
-												className='border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-3 rounded-lg transition-all duration-200'
+												className='border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-lg transition-all duration-200'
 											>
 												Learn More
 											</Button>
@@ -152,7 +152,7 @@ export default function HomePage() {
 							<button
 								key={index}
 								onClick={() => goToSlide(index)}
-								className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+								className={`w-4 h-4 rounded-full transition-colors duration-200 ${
 									index === currentSlide ? 'bg-white' : (
 										'bg-white/50 hover:bg-white'
 									)
@@ -165,11 +165,11 @@ export default function HomePage() {
 					{/* Navigation Arrows */}
 					<button
 						onClick={goToPrevSlide}
-						className='absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200 z-20'
+						className='absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-4 rounded-full transition-all duration-200 z-20'
 						aria-label='Previous slide'
 					>
 						<svg
-							className='w-6 h-6'
+							className='w-8 h-8'
 							fill='none'
 							stroke='currentColor'
 							viewBox='0 0 24 24'
@@ -184,11 +184,11 @@ export default function HomePage() {
 					</button>
 					<button
 						onClick={goToNextSlide}
-						className='absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200 z-20'
+						className='absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-4 rounded-full transition-all duration-200 z-20'
 						aria-label='Next slide'
 					>
 						<svg
-							className='w-6 h-6'
+							className='w-8 h-8'
 							fill='none'
 							stroke='currentColor'
 							viewBox='0 0 24 24'

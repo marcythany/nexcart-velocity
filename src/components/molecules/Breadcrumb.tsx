@@ -26,18 +26,34 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = '' }) => {
 		const breadcrumbs: BreadcrumbItem[] = [{ label: 'Home', href: '/' }];
 
 		let currentPath = '';
-		pathSegments.forEach((segment, index) => {
-			currentPath += `/${segment}`;
-			const label = segment
+
+		// Handle category pages specially - skip the "category" segment
+		if (pathSegments.length >= 2 && pathSegments[0] === 'category') {
+			const categorySlug = pathSegments[1];
+			const categoryName = categorySlug
 				.split('-')
 				.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 				.join(' ');
 
 			breadcrumbs.push({
-				label,
-				href: currentPath,
+				label: categoryName,
+				href: `/category/${categorySlug}`,
 			});
-		});
+		} else {
+			// Default behavior for other pages
+			pathSegments.forEach((segment, index) => {
+				currentPath += `/${segment}`;
+				const label = segment
+					.split('-')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' ');
+
+				breadcrumbs.push({
+					label,
+					href: currentPath,
+				});
+			});
+		}
 
 		return breadcrumbs;
 	};

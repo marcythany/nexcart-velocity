@@ -252,11 +252,16 @@ export default function HomePage() {
 					</div>
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
 						{categories.map((category) => {
-							const slug = category.name
-								.toLowerCase()
-								.replace(/\s+/g, '-')
-								.replace(/&/g, 'and')
-								.replace(/[^a-z0-9-]/g, '');
+							// Map category names to their corresponding slugs in categoryData
+							const slugMap: { [key: string]: string } = {
+								Electronics: 'electronics',
+								Clothing: 'clothing',
+								'Home & Kitchen': 'home-kitchen',
+								'Sports & Outdoors': 'sports-outdoors',
+							};
+							const slug =
+								slugMap[category.name] ||
+								category.name.toLowerCase().replace(/\s+/g, '-');
 							return (
 								<Link key={category.name} href={`/category/${slug}`}>
 									<Card className='group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1'>

@@ -251,32 +251,36 @@ export default function HomePage() {
 						</p>
 					</div>
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
-						{categories.map((category) => (
-							<Link
-								key={category.name}
-								href={`/category/${encodeURIComponent(category.name.toLowerCase().replace(/\s+/g, '-'))}`}
-							>
-								<Card className='group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1'>
-									<div className='aspect-[3/2] overflow-hidden rounded-t-lg relative'>
-										<Image
-											fill
-											src={category.image}
-											alt={category.name}
-											className='object-cover group-hover:scale-110 transition-transform duration-500'
-										/>
-										<div className='absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300'></div>
-									</div>
-									<CardContent className='p-6'>
-										<h3 className='font-bold text-gray-900 mb-2 text-lg'>
-											{category.name}
-										</h3>
-										<p className='text-sm text-gray-600 font-medium'>
-											{category.count} products
-										</p>
-									</CardContent>
-								</Card>
-							</Link>
-						))}
+						{categories.map((category) => {
+							const slug = category.name
+								.toLowerCase()
+								.replace(/\s+/g, '-')
+								.replace(/&/g, 'and')
+								.replace(/[^a-z0-9-]/g, '');
+							return (
+								<Link key={category.name} href={`/category/${slug}`}>
+									<Card className='group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1'>
+										<div className='aspect-[3/2] overflow-hidden rounded-t-lg relative'>
+											<Image
+												fill
+												src={category.image}
+												alt={category.name}
+												className='object-cover group-hover:scale-110 transition-transform duration-500'
+											/>
+											<div className='absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300'></div>
+										</div>
+										<CardContent className='p-6'>
+											<h3 className='font-bold text-gray-900 mb-2 text-lg'>
+												{category.name}
+											</h3>
+											<p className='text-sm text-gray-600 font-medium'>
+												{category.count} products
+											</p>
+										</CardContent>
+									</Card>
+								</Link>
+							);
+						})}
 					</div>
 				</div>
 			</section>

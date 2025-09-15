@@ -15,14 +15,11 @@ interface CartState {
 	items: CartItem[];
 	totalItems: number;
 	totalPrice: number;
-	promoCode: string | null;
-	discount: number;
 
 	// Actions
 	addItem: (item: Omit<CartItem, 'id'>) => void;
 	removeItem: (itemId: string) => void;
 	updateQuantity: (itemId: string, quantity: number) => void;
-	applyPromoCode: (code: string) => void;
 	clearCart: () => void;
 	getItemCount: () => number;
 	getTotalPrice: () => number;
@@ -35,8 +32,6 @@ export const useCartStore = create<CartState>()(
 			items: [],
 			totalItems: 0,
 			totalPrice: 0,
-			promoCode: null,
-			discount: 0,
 
 			addItem: (item) => {
 				const { items } = get();
@@ -88,23 +83,11 @@ export const useCartStore = create<CartState>()(
 				get().updateTotals();
 			},
 
-			applyPromoCode: (code) => {
-				// In a real app, you'd validate the code against a backend service
-				if (code.toUpperCase() === 'NEXCART10') {
-					set({ promoCode: code, discount: 0.1 }); // 10% discount
-				} else {
-					set({ promoCode: code, discount: 0 }); // Invalid code
-				}
-				get().updateTotals();
-			},
-
 			clearCart: () => {
 				set({
 					items: [],
 					totalItems: 0,
 					totalPrice: 0,
-					promoCode: null,
-					discount: 0,
 				});
 			},
 
@@ -114,26 +97,24 @@ export const useCartStore = create<CartState>()(
 			},
 
 			getTotalPrice: () => {
-				const { items, discount } = get();
-				const subtotal = items.reduce(
+				const { items } = get();
+				return items.reduce(
 					(total, item) => total + item.price * item.quantity,
 					0
 				);
-				return subtotal * (1 - discount);
 			},
 
 			// Helper function to update totals
 			updateTotals: () => {
-				const { items, discount } = get();
+				const { items } = get();
 				const totalItems = items.reduce(
 					(total, item) => total + item.quantity,
 					0
 				);
-				const subtotal = items.reduce(
+				const totalPrice = items.reduce(
 					(total, item) => total + item.price * item.quantity,
 					0
 				);
-				const totalPrice = subtotal * (1 - discount);
 				set({ totalItems, totalPrice });
 			},
 		}),
@@ -143,8 +124,6 @@ export const useCartStore = create<CartState>()(
 				items: state.items,
 				totalItems: state.totalItems,
 				totalPrice: state.totalPrice,
-				promoCode: state.promoCode,
-				discount: state.discount,
 			}),
 		}
 	)

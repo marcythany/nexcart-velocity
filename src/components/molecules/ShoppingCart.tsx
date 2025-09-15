@@ -1,16 +1,8 @@
-import { useCartStore } from '@/stores/cartStore';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../atoms/Button';
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '../ui/Card';
-import Input from '../ui/Input';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 
 export interface CartItem {
 	id: string;
@@ -37,25 +29,13 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 	onClearCart,
 	className,
 }) => {
-	const [promoInput, setPromoInput] = useState('');
-	const { applyPromoCode, promoCode, discount, totalPrice } = useCartStore(
-		(state) => ({
-			applyPromoCode: state.applyPromoCode,
-			promoCode: state.promoCode,
-			discount: state.discount,
-			totalPrice: state.totalPrice,
-		})
-	);
-
 	const subtotal = items.reduce(
 		(sum, item) => sum + item.price * item.quantity,
 		0
 	);
-
-	const handleApplyPromoCode = () => {
-		applyPromoCode(promoInput);
-		setPromoInput('');
-	};
+	const tax = subtotal * 0.08; // 8% tax
+	const shipping = subtotal > 50 ? 0 : 9.99;
+	const total = subtotal + tax + shipping;
 
 	if (items.length === 0) {
 		return (
@@ -87,7 +67,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 					</Button>
 				</div>
 			</CardHeader>
-			<CardContent className='space-y-6'>
+			<CardContent className='space-y-4'>
 				{/* Cart Items */}
 				<div className='space-y-4'>
 					{items.map((item) => (
@@ -163,59 +143,31 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 					))}
 				</div>
 
-				{/* Promo Code Input */}
-				<div className='space-y-2'>
-					<label htmlFor='promo-code' className='text-sm font-medium'>
-						Promo Code
-					</label>
-					<div className='flex gap-2'>
-						<Input
-							id='promo-code'
-							placeholder='Enter code'
-							value={promoInput}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-								setPromoInput(e.target.value)
-							}
-							className='flex-1'
-						/>
-						<Button onClick={handleApplyPromoCode} disabled={!promoInput}>
-							Apply
-						</Button>
-					</div>
-					{promoCode && (
-						<p
-							className={`text-sm ${discount > 0 ? 'text-success' : 'text-error'}`}
-						>
-							{discount > 0 ?
-								`Applied "${promoCode}" for a ${(discount * 100).toFixed(0)}% discount!`
-							:	`"${promoCode}" is not a valid code.`}
-						</p>
-					)}
-				</div>
-
 				{/* Order Summary */}
 				<div className='border-t border-border pt-4 space-y-2'>
 					<div className='flex justify-between'>
-						<span>Subtotal</span>
+						<span>Subtotal:</span>
 						<span>${subtotal.toFixed(2)}</span>
 					</div>
-					{discount > 0 && (
-						<div className='flex justify-between text-success'>
-							<span>Discount ({promoCode})</span>
-							<span>-${(subtotal * discount).toFixed(2)}</span>
-						</div>
-					)}
+					<div className='flex justify-between'>
+						<span>Tax:</span>
+						<span>${tax.toFixed(2)}</span>
+					</div>
+					<div className='flex justify-between'>
+						<span>Shipping:</span>
+						<span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+					</div>
 					<div className='flex justify-between font-bold text-lg border-t border-border pt-2'>
-						<span>Total</span>
-						<span>${totalPrice.toFixed(2)}</span>
+						<span>Total:</span>
+						<span>${total.toFixed(2)}</span>
 					</div>
 				</div>
-			</CardContent>
-			<CardFooter>
+
+				{/* Checkout Button */}
 				<Button className='w-full' size='lg'>
 					Proceed to Checkout
 				</Button>
-			</CardFooter>
+			</CardContent>
 		</Card>
 	);
 };

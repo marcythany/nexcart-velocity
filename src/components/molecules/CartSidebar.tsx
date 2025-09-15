@@ -1,23 +1,25 @@
-import { useCartStore } from '@/stores/cartStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ShoppingBag, X } from 'lucide-react';
 import React from 'react';
-import ShoppingCart from './ShoppingCart';
+import ShoppingCart, { CartItem } from './ShoppingCart';
 
 interface CartSidebarProps {
 	isOpen: boolean;
 	onClose: () => void;
+	items: CartItem[];
+	onUpdateQuantity: (itemId: string, quantity: number) => void;
+	onRemoveItem: (itemId: string) => void;
+	onClearCart: () => void;
 }
 
-const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
-	const { items, updateQuantity, removeItem, clearCart } = useCartStore(
-		(state) => ({
-			items: state.items,
-			updateQuantity: state.updateQuantity,
-			removeItem: state.removeItem,
-			clearCart: state.clearCart,
-		})
-	);
+const CartSidebar: React.FC<CartSidebarProps> = ({
+	isOpen,
+	onClose,
+	items,
+	onUpdateQuantity,
+	onRemoveItem,
+	onClearCart,
+}) => {
 	// Close sidebar when clicking outside
 	const handleBackdropClick = (e: React.MouseEvent) => {
 		if (e.target === e.currentTarget) {
@@ -83,9 +85,9 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
 						<div className='flex-1 overflow-auto p-6'>
 							<ShoppingCart
 								items={items}
-								onUpdateQuantity={updateQuantity}
-								onRemoveItem={removeItem}
-								onClearCart={clearCart}
+								onUpdateQuantity={onUpdateQuantity}
+								onRemoveItem={onRemoveItem}
+								onClearCart={onClearCart}
 								className='border-none shadow-none'
 							/>
 						</div>

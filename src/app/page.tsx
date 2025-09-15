@@ -116,11 +116,11 @@ export default function HomePage() {
 							<div className='relative h-full flex items-center justify-center'>
 								<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-16 lg:py-20'>
 									<div className='max-w-2xl mx-auto text-center'>
-										<h1 className='hero-title text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight'>
+										<h1 className='hero-title font-bold text-white mb-6 leading-tight'>
 											{slide.title}
 										</h1>
 										<p
-											className={`text-xl md:text-2xl ${slide.textColor} mb-8 leading-relaxed max-w-3xl mx-auto`}
+											className={`text-lg md:text-xl ${slide.textColor} mb-8 leading-relaxed max-w-2xl mx-auto`}
 										>
 											{slide.description}
 										</p>
@@ -145,22 +145,6 @@ export default function HomePage() {
 							</div>
 						</div>
 					))}
-
-					{/* Carousel Controls */}
-					<div className='absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20'>
-						{carouselSlides.map((_, index) => (
-							<button
-								key={index}
-								onClick={() => goToSlide(index)}
-								className={`w-4 h-4 rounded-full transition-colors duration-200 ${
-									index === currentSlide ? 'bg-white' : (
-										'bg-white/50 hover:bg-white'
-									)
-								}`}
-								aria-label={`Go to slide ${index + 1}`}
-							></button>
-						))}
-					</div>
 
 					{/* Navigation Arrows */}
 					<button

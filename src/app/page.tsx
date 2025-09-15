@@ -254,7 +254,7 @@ export default function HomePage() {
 						{categories.map((category) => (
 							<Link
 								key={category.name}
-								href={`/category/${category.name.toLowerCase()}`}
+								href={`/category/${encodeURIComponent(category.name.toLowerCase().replace(/\s+/g, '-'))}`}
 							>
 								<Card className='group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1'>
 									<div className='aspect-[3/2] overflow-hidden rounded-t-lg relative'>

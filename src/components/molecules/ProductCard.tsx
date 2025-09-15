@@ -136,9 +136,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
 								className='p-2.5 bg-white/95 hover:bg-white shadow-lg hover:shadow-xl rounded-full border border-gray-200 backdrop-blur-sm'
 								onClick={(e: React.MouseEvent) => {
 									e.stopPropagation();
-									onQuickView(product);
+									onAddToCart(product);
 								}}
-								aria-label='Quick view'
+								aria-label='Add to cart'
 							>
 								<ShoppingCart size={18} className='text-gray-700' />
 							</Button>

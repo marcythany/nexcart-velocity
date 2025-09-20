@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/atoms/Button';
-import Typography from '@/components/atoms/Typography';
+import { Typography } from '@/components/atoms/Typography';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

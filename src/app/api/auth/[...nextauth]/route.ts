@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { storage } from '../../../../../lib/db/mockData';
+import { storage } from '@/lib/db/mockData';
 // In a real application, you would use a library like bcrypt to handle password hashing.
 // For this example, we are using plain text passwords for the mock users.
 import bcrypt from 'bcrypt';

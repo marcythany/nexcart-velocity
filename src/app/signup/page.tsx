@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/atoms/Button';
-import Typography from '@/components/atoms/Typography';
+import { Typography } from '@/components/atoms/Typography';
 
 export default function SignupPage() {
   const [name, setName] = useState('');

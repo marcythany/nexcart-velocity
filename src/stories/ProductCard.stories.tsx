@@ -59,6 +59,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		product: sampleProduct,
+		priority: true,
 	},
 };
 
@@ -79,6 +80,7 @@ export const OnSale: Story = {
 			isNew: false,
 			isOnSale: true,
 		},
+		priority: true,
 	},
 };
 

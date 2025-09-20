@@ -1,4 +1,7 @@
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { Heart, Menu, Search, ShoppingCart, User, X } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -11,9 +14,6 @@ interface HeaderProps {
 	onCartClick: () => void;
 	onWishlistClick: () => void;
 	onSearch: (query: string) => void;
-	onUserMenuClick: () => void;
-	isLoggedIn?: boolean;
-	userName?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -22,10 +22,8 @@ const Header: React.FC<HeaderProps> = ({
 	onCartClick,
 	onWishlistClick,
 	onSearch,
-	onUserMenuClick,
-	isLoggedIn = false,
-	userName,
 }) => {
+	const { data: session } = useSession();
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -215,19 +213,44 @@ const Header: React.FC<HeaderProps> = ({
 						</motion.div>
 
 						{/* User Menu */}
-						<motion.div variants={itemVariants} whileHover={{ scale: 1.1 }}>
-							<Button
-								variant='ghost'
-								size='sm'
-								className='p-2 hover:bg-gray-100 rounded-full'
-								onClick={onUserMenuClick}
-								aria-label={
-									isLoggedIn ? `Account menu for ${userName}` : 'Sign in'
-								}
-							>
-								<User size={20} className='text-gray-600' />
-							</Button>
-						</motion.div>
+						<motion.div variants={itemVariants} className="flex items-center space-x-2">
+              {session ? (
+                <>
+                  <span className="hidden sm:inline text-sm font-medium text-gray-700">
+                    {session.user?.name}
+                  </span>
+									<Button
+										variant='ghost'
+										size='sm'
+										className='p-2 hover:bg-gray-100 rounded-full'
+										onClick={() => signOut()}
+										aria-label="Sign out"
+									>
+										<X size={20} className='text-gray-600' />
+									</Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    onClick={() => signIn()}
+                    aria-label="Sign in"
+                  >
+                    Login
+                  </Button>
+                  <Link href="/signup">
+                    <Button
+                      variant='solid'
+                      size='sm'
+                      aria-label="Sign up"
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </motion.div>
 
 						{/* Mobile Menu Button */}
 						<motion.div variants={itemVariants}>

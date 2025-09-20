@@ -1,3 +1,4 @@
+import NextAuthProvider from '@/components/atoms/NextAuthProvider';
 import ApolloProvider from '@/components/atoms/ApolloProvider';
 import MotionProvider from '@/components/atoms/MotionProvider';
 import Footer from '@/components/organisms/Footer';
@@ -117,9 +118,11 @@ export default function RootLayout({
 					Skip to main content
 				</a>
 
-				<ApolloProvider>
-					<MotionProvider>{children}</MotionProvider>
-				</ApolloProvider>
+				<NextAuthProvider>
+					<ApolloProvider>
+						<MotionProvider>{children}</MotionProvider>
+					</ApolloProvider>
+				</NextAuthProvider>
 
 				<Footer />
 

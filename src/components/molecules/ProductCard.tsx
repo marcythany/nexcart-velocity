@@ -36,6 +36,7 @@ interface ProductCardProps {
 	onQuickView: (product: Product) => void;
 	isInWishlist?: boolean;
 	className?: string;
+	priority?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -45,6 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 	onQuickView,
 	isInWishlist = false,
 	className,
+	priority = false,
 }) => {
 	const discountPercentage =
 		product.originalPrice ?
@@ -74,6 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 						fill
 						className='object-cover transition-transform duration-500 group-hover:scale-110'
 						sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw'
+						priority={priority}
 					/>
 					{/* Badges */}
 					<div className='absolute top-3 left-3 grid grid-rows-auto gap-2 z-10'>

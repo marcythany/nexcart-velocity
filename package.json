@@ -15,7 +15,8 @@
     "test:e2e": "playwright test",
     "test:cy": "cypress run",
     "test:jest": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clear-cache": "rm -rf .turbo && rm -rf .next && rm -rf node_modules/.cache"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",

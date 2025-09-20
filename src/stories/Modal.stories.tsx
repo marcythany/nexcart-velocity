@@ -49,9 +49,7 @@ export const Default: Story = {
 	args: {
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Modal Title</h2>
-				</ModalHeader>
+				<ModalHeader>Modal Title</ModalHeader>
 				<ModalBody>
 					<p>This is the modal content. You can put any content here.</p>
 				</ModalBody>
@@ -71,9 +69,7 @@ export const Small: Story = {
 		size: 'sm',
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Small Modal</h2>
-				</ModalHeader>
+				<ModalHeader>Small Modal</ModalHeader>
 				<ModalBody>
 					<p>This is a small modal with compact content.</p>
 				</ModalBody>
@@ -92,9 +88,7 @@ export const Large: Story = {
 		size: 'lg',
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Large Modal</h2>
-				</ModalHeader>
+				<ModalHeader>Large Modal</ModalHeader>
 				<ModalBody>
 					<div className='space-y-4'>
 						<p>This is a large modal that can contain more content.</p>
@@ -124,9 +118,7 @@ export const FullWidth: Story = {
 		size: 'full',
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Full Width Modal</h2>
-				</ModalHeader>
+				<ModalHeader>Full Width Modal</ModalHeader>
 				<ModalBody>
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 						<div>
@@ -154,9 +146,7 @@ export const Confirmation: Story = {
 	args: {
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Confirm Action</h2>
-				</ModalHeader>
+				<ModalHeader>Confirm Action</ModalHeader>
 				<ModalBody>
 					<p>
 						Are you sure you want to delete this item? This action cannot be
@@ -181,9 +171,7 @@ export const FormModal: Story = {
 		size: 'lg',
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Add New Product</h2>
-				</ModalHeader>
+				<ModalHeader>Add New Product</ModalHeader>
 				<ModalBody>
 					<form className='space-y-4'>
 						<div>
@@ -232,9 +220,7 @@ export const NoCloseOnOverlay: Story = {
 		closeOnOverlayClick: false,
 		children: (
 			<>
-				<ModalHeader>
-					<h2>Important Notice</h2>
-				</ModalHeader>
+				<ModalHeader>Important Notice</ModalHeader>
 				<ModalBody>
 					<p>
 						This modal cannot be closed by clicking the overlay. You must use

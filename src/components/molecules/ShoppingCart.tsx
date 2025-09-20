@@ -20,6 +20,7 @@ interface ShoppingCartProps {
 	onRemoveItem: (itemId: string) => void;
 	onClearCart: () => void;
 	className?: string;
+	unoptimized?: boolean;
 }
 
 const ShoppingCart: React.FC<ShoppingCartProps> = ({
@@ -28,6 +29,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 	onRemoveItem,
 	onClearCart,
 	className,
+	unoptimized = false,
 }) => {
 	const subtotal = items.reduce(
 		(sum, item) => sum + item.price * item.quantity,
@@ -83,6 +85,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 									width={64}
 									height={64}
 									className='object-cover rounded'
+									unoptimized={unoptimized}
 								/>
 							</div>
 

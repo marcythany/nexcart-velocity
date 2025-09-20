@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { SessionProvider } from 'next-auth/react';
 import { fn } from 'storybook/test';
 import Header from '../components/organisms/Header';
 
@@ -22,12 +23,6 @@ const meta = {
 		wishlistItemCount: {
 			control: { type: 'number', min: 0 },
 		},
-		isLoggedIn: {
-			control: 'boolean',
-		},
-		userName: {
-			control: 'text',
-		},
 	},
 	args: {
 		cartItemCount: 0,
@@ -35,9 +30,14 @@ const meta = {
 		onCartClick: fn(),
 		onWishlistClick: fn(),
 		onSearch: fn(),
-		onUserMenuClick: fn(),
-		isLoggedIn: false,
 	},
+	decorators: [
+		(Story) => (
+			<SessionProvider session={null}>
+				<Story />
+			</SessionProvider>
+		),
+	],
 } satisfies Meta<typeof Header>;
 
 export default meta;
@@ -61,24 +61,33 @@ export const LoggedIn: Story = {
 	args: {
 		cartItemCount: 2,
 		wishlistItemCount: 1,
-		isLoggedIn: true,
-		userName: 'John Doe',
 	},
+	decorators: [
+		(Story) => (
+			<SessionProvider session={{ user: { name: 'John Doe' }, expires: '1' }}>
+				<Story />
+			</SessionProvider>
+		),
+	],
 };
 
 export const ManyItems: Story = {
 	args: {
 		cartItemCount: 99,
 		wishlistItemCount: 25,
-		isLoggedIn: true,
-		userName: 'Jane Smith',
 	},
+	decorators: [
+		(Story) => (
+			<SessionProvider session={{ user: { name: 'Jane Smith' }, expires: '1' }}>
+				<Story />
+			</SessionProvider>
+		),
+	],
 };
 
 export const EmptyState: Story = {
 	args: {
 		cartItemCount: 0,
 		wishlistItemCount: 0,
-		isLoggedIn: false,
 	},
 };
